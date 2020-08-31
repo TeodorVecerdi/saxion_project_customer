@@ -1,2 +1,2 @@
-# saxion_project_customer
+# Project Customer
 Repository for the Project Customer course at Saxion
