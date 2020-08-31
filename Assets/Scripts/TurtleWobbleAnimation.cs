@@ -24,7 +24,7 @@ public class TurtleWobbleAnimation : MonoBehaviour {
         currentPosition.y = currentY;
         transform.localPosition = currentPosition;
         
-        var currentRot = (-Motion.Evaluate(CurrentTime + .5f) * RotationPeak * 2 + RotationPeak) * Direction;
+        var currentRot = -Direction * (Motion.Evaluate(CurrentTime + .5f) * RotationPeak * 2 - RotationPeak);
         transform.localRotation = Quaternion.Euler(currentRot, 0f, 0f);
 
         CurrentTime += Direction * Speed * Time.deltaTime;
