@@ -1,0 +1,8 @@
+.idea/
+Assembly-CSharp.csproj
+Library/
+Logs/
+Packages/
+Temp/
+obj/
+project_customer.sln
