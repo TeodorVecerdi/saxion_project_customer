@@ -438,8 +438,8 @@ fabric.properties
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
-Builds/*
-!Builds/latest/
+docs/*
+!docs/latest/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
