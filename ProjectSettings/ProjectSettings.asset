@@ -16,7 +16,7 @@ PlayerSettings:
   productName: Plastic Turtle
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.4509804, g: 0.90588236, b: 0.9843137, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.44280005, g: 0.9020001, b: 0.984, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 0
@@ -572,7 +572,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:Better2020
+  webGLTemplate: PROJECT:BetterTemplate
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 2
