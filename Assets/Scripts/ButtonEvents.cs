@@ -19,7 +19,17 @@ public class ButtonEvents : MonoBehaviour
 
     public void OnSettingsClick()
     {
-        SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Single);
+        if(SceneManager.GetActiveScene().name == "WorldGen")
+            Time.timeScale = 0;
+        Debug.Log(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
+    }
+
+    public void OnBackBtnClick()
+    {
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
+        SceneManager.UnloadScene("SettingsMenu");
     }
 
     public void OnMainMenuClick()

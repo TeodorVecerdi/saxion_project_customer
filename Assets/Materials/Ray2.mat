@@ -20,10 +20,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ray
+  m_Name: Ray2
   m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
-  m_ShaderKeywords: _FADING_ON _SOFTPARTICLES_ON
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _DISTORTION_ON _EMISSION _FADING_ON _SOFTPARTICLES_ON
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3050
@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 2fc828b2617baaa408ca97ed3ed7de19, type: 3}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -72,13 +72,13 @@ Material:
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 1
-    - _CameraFarFadeDistance: 2
+    - _CameraFarFadeDistance: 10
     - _CameraNearFadeDistance: 1
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DistortionBlend: 0
-    - _DistortionEnabled: 0
+    - _DistortionBlend: 0.573
+    - _DistortionEnabled: 1
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0.1
     - _DstBlend: 10
@@ -92,7 +92,7 @@ Material:
     - _GlossyReflections: 0
     - _ImageType: 0
     - _Layout: 0
-    - _LightingEnabled: 1
+    - _LightingEnabled: 0
     - _Mapping: 1
     - _Metallic: 0
     - _MirrorOnBack: 0
@@ -102,21 +102,23 @@ Material:
     - _ReceiveShadows: 1
     - _Rotation: 177
     - _Smoothness: 0.5
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 1
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
+    - _SoftParticlesFarFadeDistance: 2
+    - _SoftParticlesNearFadeDistance: 0.5
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Surface: 1
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.2599235, g: 0.29466754, b: 0.9339623, a: 1}
     - _BaseColorAddSubDiff: {r: -1, g: 1, b: 0, a: 0}
-    - _CameraFadeParams: {r: 1, g: 1, b: 0, a: 0}
+    - _CameraFadeParams: {r: 1, g: 0.11111111, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 23.968628, g: 23.968628, b: 23.968628, a: 1}
-    - _SoftParticleFadeParams: {r: 0, g: 1, b: 0, a: 0}
+    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 1.1352746, g: 1.7418673, b: 1.8921245, a: 1}
+    - _SoftParticleFadeParams: {r: 0.5, g: 0.6666667, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

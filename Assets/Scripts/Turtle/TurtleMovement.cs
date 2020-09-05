@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using World;
 
-public class MouseController : MonoBehaviour {
+public class TurtleMovement : MonoBehaviour {
     [Header("Horizontal Movement Settings")]
     public float MaxHorizontal = 4.5f;
     public float DeadZoneRatioHorizontal = 0.1f;
