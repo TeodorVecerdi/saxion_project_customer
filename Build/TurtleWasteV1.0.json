@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "project_customer",
+"productVersion": "0.1",
+"dataUrl": "TurtleWasteV1.0.data.unityweb",
+"wasmCodeUrl": "TurtleWasteV1.0.wasm.code.unityweb",
+"wasmFrameworkUrl": "TurtleWasteV1.0.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.9f1"
+}
