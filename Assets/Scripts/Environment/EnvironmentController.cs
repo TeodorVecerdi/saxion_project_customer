@@ -8,6 +8,6 @@ using UnityEngine;
             if (transform.position.z <= -ResetDistance) {
                 transform.position += new Vector3(0f, 0f, ResetDistance);
             }
-            transform.position -= new Vector3(0f, 0f, TurtleStats.Instance.CurrentSpeed * Time.deltaTime);
+            transform.position -= new Vector3(0f, 0f, TurtleStats.Instance.CurrentSpeed * GameTime.DeltaTime);
         }
     }

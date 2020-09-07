@@ -68,10 +68,10 @@ public class HPBars : MonoBehaviour
 
     private void Starvation(float health, float hunger) {
         if (currentHunger == 0f) {
-            ChangeHealth(-health * Time.deltaTime);
+            ChangeHealth(-health * GameTime.DeltaTime);
         }
         else
-            ChangeHunger(-hunger * Time.deltaTime);
+            ChangeHunger(-hunger * GameTime.DeltaTime);
     }
 
     private void CheckDeath() {

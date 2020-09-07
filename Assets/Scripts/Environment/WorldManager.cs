@@ -42,7 +42,7 @@ public class WorldManager : MonoBehaviour {
         // Move all chunks towards the player
         foreach (var chunk in ActiveChunks) {
             var currentPosition = chunk.transform.position;
-            currentPosition.z += -TurtleStats.Instance.CurrentSpeed * Time.deltaTime;
+            currentPosition.z += -TurtleStats.Instance.CurrentSpeed * GameTime.DeltaTime;
             chunk.transform.position = currentPosition;
         }
 

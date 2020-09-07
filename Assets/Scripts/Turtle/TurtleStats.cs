@@ -25,7 +25,7 @@ public class TurtleStats : MonoBehaviour {
     }
 
     private void Update() {
-        DistanceTravelled += CurrentSpeed * Time.deltaTime;
+        DistanceTravelled += CurrentSpeed * GameTime.DeltaTime;
         DistanceText.text = $"Distance travelled:\n<b><color=#2ECC71>{Math.Round(DistanceTravelled, 2):.00}m</color></b>";
     }
 }

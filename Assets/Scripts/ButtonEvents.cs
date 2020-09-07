@@ -17,18 +17,17 @@ public class ButtonEvents : MonoBehaviour
         SceneManager.LoadScene("WorldGen", LoadSceneMode.Single);
     }
 
-    public void OnSettingsClick()
-    {
-        if(SceneManager.GetActiveScene().name == "WorldGen")
-            Time.timeScale = 0;
+    public void OnSettingsClick() {
+        if (SceneManager.GetActiveScene().name == "WorldGen")
+            GameTime.IsPaused = true;
         Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
     }
 
     public void OnBackBtnClick()
     {
-        if (Time.timeScale == 0)
-            Time.timeScale = 1;
+        if (GameTime.IsPaused)
+            GameTime.IsPaused = false;
         SceneManager.UnloadScene("SettingsMenu");
     }
 
