@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TurtleHealth : MonoBehaviour {
     [Header("Health")]
@@ -15,6 +16,8 @@ public class TurtleHealth : MonoBehaviour {
     public float Hunger;
     public float MaxHunger = 100;
     public float HungerStarvation = 3f;
+
+    private float runScore = 0f;
 
     public static TurtleHealth Instance { get; private set; }
 
@@ -58,9 +61,13 @@ public class TurtleHealth : MonoBehaviour {
     }
 
     private void CheckDeath() {
-        if (Health == 0) {
-            Debug.Log("u ded");
-            Destroy(gameObject);
-        }
+        if (Health != 0)
+            return;
+        
+        runScore = TurtleStats.Instance.DistanceTravelled;
+        PlayerPrefs.SetFloat("CurrentScore", runScore);
+        PlayerPrefs.Save();
+        Debug.Log("u ded");
+        SceneManager.LoadScene("DeathMenu", LoadSceneMode.Single);
     }
 }

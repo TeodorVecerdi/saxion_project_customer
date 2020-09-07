@@ -8,25 +8,31 @@ public class TurtleBoost : MonoBehaviour {
     [Header("General Settings")]
     public float BoostDuration = 3f;
     public float BoostCooldown = 4f;
+    
     [Header("Boost Settings")]
     public float NormalSpeed = 2f;
     public float BoostSpeed = 4f;
     public float NormalFOV = 50f;
     public float BoostFOV = 65f;
-    public float TimeToActivate = 1f;
+    public float TransitionTime = 0.5f;
+    
     [Header("Boost UI References")]
     public Color AvailableColor;
     public Color CooldownColor;
     public Image CooldownProgressImage;
     public Image BoostIconImage;
     public Image BorderImage;
-    
+
+    // Boost variables
     private bool isBoostAvailable = true;
-    private bool isCooldownActive = false;
-    private float cooldownTimer;
+    private bool isBoosting; 
     private float boostTimer;
     
-    private bool isBoosting;
+    // Cooldown variables
+    private bool isCooldownActive = false;
+    private float cooldownTimer;
+
+    // Transition variables
     private bool isTransitionActive;
     private int transitionTimeDirection;
     private float transitionTimer;
@@ -35,9 +41,6 @@ public class TurtleBoost : MonoBehaviour {
         if (isBoostAvailable && Input.GetKeyDown(KeyCode.B)) {
             isBoostAvailable = false;
             boostTimer = 0f;
-            
-            cooldownTimer = 0f;
-            isCooldownActive = true;
 
             isBoosting = true;
             transitionTimer = isTransitionActive ? transitionTimer : 0f;
@@ -50,10 +53,14 @@ public class TurtleBoost : MonoBehaviour {
 
         if (isBoosting) {
             boostTimer += GameTime.DeltaTime;
+            CooldownProgressImage.fillAmount = boostTimer / BoostDuration;
             if (boostTimer >= BoostDuration) {
                 isBoosting = false;
 
-                transitionTimer = isTransitionActive ? transitionTimer : TimeToActivate;
+                cooldownTimer = 0f;
+                isCooldownActive = true;
+
+                transitionTimer = isTransitionActive ? transitionTimer : TransitionTime;
                 isTransitionActive = true;
                 transitionTimeDirection = -1;
             }
@@ -80,11 +87,11 @@ public class TurtleBoost : MonoBehaviour {
         float currentSpeed;
         float currentFOV;
         if (transitionTimeDirection == 1) {
-            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TimeToActivate);
-            currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TimeToActivate);
+            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
+            currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TransitionTime);
         } else {
-            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TimeToActivate);
-            currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TimeToActivate);
+            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
+            currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TransitionTime);
         }
 
         // Apply speed and FOV
@@ -96,7 +103,7 @@ public class TurtleBoost : MonoBehaviour {
             isTransitionActive = false;
             TurtleStats.Instance.CurrentSpeed = NormalSpeed;
             Camera.fieldOfView = NormalFOV;
-        } else if (transitionTimer > TimeToActivate) {
+        } else if (transitionTimer > TransitionTime) {
             isTransitionActive = false;
             TurtleStats.Instance.CurrentSpeed = BoostSpeed;
             Camera.fieldOfView = BoostFOV;
