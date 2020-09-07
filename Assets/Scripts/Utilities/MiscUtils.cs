@@ -16,4 +16,8 @@ public static class MiscUtils {
     public static List<T> ChooseBetween<T>(List<T> first, List<T> second) {
         return RandomBool() ? first : second;
     }
+    
+    public static List<T> ChooseBetweenWithWeight<T>(List<T> first, List<T> second, float weight) {
+        return UnityEngine.Random.Range(0f, 1f) <= weight ? first : second;
+    }
 }

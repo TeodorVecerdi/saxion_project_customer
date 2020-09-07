@@ -11,6 +11,11 @@ public class TurtleStats : MonoBehaviour {
     public TurtleStage Stage;
     public float TeenDistance = 100f;
     public float AdultDistance = 200f;
+    
+    [Header("Food/Junk Spawning Settings")]
+    [MinMaxSlider(0f, 1f)] public MinMax HatchlingJunkDistribution = new MinMax(0f, 0f);
+    [MinMaxSlider(0f, 1f)] public MinMax TeenJunkDistribution = new MinMax(0f, 0.2f);
+    [MinMaxSlider(0f, 1f)] public MinMax AdultJunkDistribution = new MinMax(0.2f, 0.9f);
 
     [Header("Other References")]
     public TMP_Text DistanceText;

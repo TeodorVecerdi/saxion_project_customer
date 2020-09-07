@@ -21,7 +21,7 @@ public class ChunkBuilder : MonoBehaviour {
         foreach (var row in SpawnRows) {
             var itemsToSpawn = UnityEngine.Random.Range(1, 4);
             for (var i = 0; i < itemsToSpawn; i++) {
-                var itemToSpawn = MiscUtils.ChooseBetween(FoodItems, JunkItems).RandomElement();
+                var itemToSpawn = MiscUtils.ChooseBetweenWithWeight(FoodItems, JunkItems, 0.5f).RandomElement();
                 var position = new Vector3(UnityEngine.Random.Range(-MaxSpawnWidth/2f, MaxSpawnWidth/2f), UnityEngine.Random.Range(0f, MaxSpawnHeight), row.z);
                 Instantiate(itemToSpawn, position, Quaternion.identity, transform);
             }
