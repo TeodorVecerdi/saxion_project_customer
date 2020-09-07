@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using World;
 
 public class ChunkBuilder : MonoBehaviour {
     public List<SpawnableItem> FoodItems;

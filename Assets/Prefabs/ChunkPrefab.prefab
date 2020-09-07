@@ -47,15 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FoodItems:
-  - {fileID: 1232169985257597103, guid: 791019871715a0540a33c7a837563187, type: 3}
-  - {fileID: 5377126370427121686, guid: 9cbf57c5ff677c448ad0bf2f30243f9a, type: 3}
-  - {fileID: 8356395350675129271, guid: e14246bc2484c4844bde730fd14802c1, type: 3}
-  - {fileID: 1400487191847596, guid: 0d44dead7fcb50e45b4b577c5c6a4ef3, type: 3}
+  - {fileID: 2200303721820085936, guid: ffbbb2c36392d1247b1e98cba2e2b3eb, type: 3}
+  - {fileID: 7572052120016852452, guid: cb2328dee68425d488f87f50890f17c6, type: 3}
+  - {fileID: 1519001579717325380, guid: 4f5a3e0dd0a50d34c9ca93c0c9443d70, type: 3}
   JunkItems:
-  - {fileID: 1344067470849108198, guid: d7a510c58c322424d97dab3a377e6d7f, type: 3}
-  - {fileID: 3429088078679586347, guid: 527d321ad51c4cc40a57a2d5201b639b, type: 3}
-  - {fileID: 2400566457611122297, guid: 1df5d4299338962409b7f57d97e447fc, type: 3}
-  - {fileID: 1215668001810206471, guid: ded673c61ef099c4fa7295e070a2aa1c, type: 3}
+  - {fileID: 7782855404837513407, guid: fa5952d13ad0f1f4b8aaff0badde52dd, type: 3}
+  - {fileID: 762067994178442555, guid: 4d2fa7afb6e89b04ea436662f94a841d, type: 3}
+  - {fileID: 4024089400883954557, guid: 9740d9d4b13b83d47a18e25fe6938d03, type: 3}
   SpawnRows: []
   MaxSpawnWidth: 5
   MaxSpawnHeight: 2

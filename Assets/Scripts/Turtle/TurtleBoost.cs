@@ -19,6 +19,7 @@ public class TurtleBoost : MonoBehaviour {
     public Color CooldownColor;
     public Image CooldownProgressImage;
     public Image BoostIconImage;
+    public Image BorderImage;
     
     private bool isBoostAvailable = true;
     private bool isCooldownActive = false;
@@ -44,6 +45,7 @@ public class TurtleBoost : MonoBehaviour {
             transitionTimeDirection = 1;
 
             BoostIconImage.color = CooldownColor;
+            BorderImage.color = CooldownColor;
         }
 
         if (isBoosting) {
@@ -65,6 +67,7 @@ public class TurtleBoost : MonoBehaviour {
                 isBoostAvailable = true;
                 CooldownProgressImage.fillAmount = 0f;
                 BoostIconImage.color = AvailableColor;
+                BorderImage.color = AvailableColor;
             }
         }
 

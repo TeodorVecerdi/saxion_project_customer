@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using World;
 
 public class TurtleMovement : MonoBehaviour {
     [Header("Horizontal Movement Settings")]
@@ -29,10 +28,10 @@ public class TurtleMovement : MonoBehaviour {
     [Range(0f, 1f)] public float SmoothRotationDamping = 0.3f;
 
     private Vector3 movementDampingVelocity;
-    private HPBars bars;
+    private TurtleHealth turtleHealth;
 
     private void Start() {
-        bars = HPBars.GetInstance();
+        turtleHealth = TurtleHealth.Instance;
     }
 
     private void Update() {
@@ -73,13 +72,13 @@ public class TurtleMovement : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        var isFood = other.gameObject.CompareTag("Food");
-        var isJunk = other.gameObject.CompareTag("Junk");
-        if (!isFood && !isJunk) return;
+        
+        if (other.gameObject.layer != LayerMask.NameToLayer("Pickup")) 
+            return;
 
-        var spawnableItem = other.GetComponentInParent<SpawnableItem>();
-        bars.ChangeHealth(spawnableItem.HealthAmount);
-        bars.ChangeHunger(spawnableItem.FoodAmount);
+        var spawnableItem = other.GetComponent<SpawnableItem>();
+        turtleHealth.ChangeHealth(spawnableItem.HealthAmount);
+        turtleHealth.ChangeHunger(spawnableItem.FoodAmount);
 
         Destroy(other.gameObject);
     }
