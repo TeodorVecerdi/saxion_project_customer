@@ -21,7 +21,7 @@ public class ButtonEvents : MonoBehaviour
         string turtleName;
         turtleName = inputField.text;
         PlayerPrefs.SetString("name", turtleName);
-        SceneManager.LoadScene("WorldGen", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
     public void OnSettingsClick() {

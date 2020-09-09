@@ -1,7 +1,7 @@
 {
 "companyName": "East Coast Gang",
 "productName": "Plastic Turtle",
-"productVersion": "0.9.4",
+"productVersion": "0.9.4b",
 "dataUrl": "docs.data.unityweb",
 "wasmCodeUrl": "docs.wasm.code.unityweb",
 "wasmFrameworkUrl": "docs.wasm.framework.unityweb",
