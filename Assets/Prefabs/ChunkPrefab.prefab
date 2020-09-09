@@ -57,6 +57,7 @@ MonoBehaviour:
   SpawnRows: []
   MaxSpawnWidth: 5
   MaxSpawnHeight: 2
+  MaxItems: 2
 --- !u!1 &4949584985680093667
 GameObject:
   m_ObjectHideFlags: 0

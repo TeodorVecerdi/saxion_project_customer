@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ButtonEvents : MonoBehaviour
@@ -12,8 +13,14 @@ public class ButtonEvents : MonoBehaviour
         thisBtn = GetComponent<RectTransform>();
     }
 
-    public void OnStartGameClick()
-    {
+    public void OnStartGameClick() {
+        SceneManager.LoadScene("NameMenu", LoadSceneMode.Single);
+    }
+
+    public void OnPlayClick(TMP_InputField inputField) {
+        string turtleName;
+        turtleName = inputField.text;
+        PlayerPrefs.SetString("name", turtleName);
         SceneManager.LoadScene("WorldGen", LoadSceneMode.Single);
     }
 
@@ -28,6 +35,11 @@ public class ButtonEvents : MonoBehaviour
         if (GameTime.IsPaused)
             GameTime.IsPaused = false;
         SceneManager.UnloadSceneAsync("SettingsMenu");
+    }
+
+    public void SubmitName(string turtleName)
+    {
+        Debug.Log(turtleName);
     }
 
     public void OnMainMenuClick()
