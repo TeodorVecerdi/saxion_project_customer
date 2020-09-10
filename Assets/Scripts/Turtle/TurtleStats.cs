@@ -1,18 +1,24 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TurtleStats : MonoBehaviour {
     [Header("Stats")]
     public float DistanceTravelled;
-    public float NormalSpeed = 2;
-    public float CurrentSpeed = 2;
+    public float Time;
+    public float TimeSpeed = 2f;
+    public float NormalSpeed = 2f;
+    public float CurrentSpeed = 2f;
 
     [Header("Stage")]
     public TurtleStage Stage;
-    public float TeenDistance = 100f;
-    public float AdultDistance = 200f;
-    public float EssentialDeathDistance = 300f;
+    [FormerlySerializedAs("TeenDistance")]
+    public float TeenConversionTime = 100f;
+    [FormerlySerializedAs("AdultDistance")]
+    public float AdultConversionTime = 200f;
+    [FormerlySerializedAs("EssentialDeathDistance")]
+    public float EssentialDeathTime = 300f;
 
     [Header("Food/Junk Spawning Settings")]
     public float CurrentJunkDistribution = 0f;
@@ -39,17 +45,19 @@ public class TurtleStats : MonoBehaviour {
     private void Start() {
         CurrentSpeed = NormalSpeed;
         DistanceTravelled = 0f;
+        Time = 0f;
     }
 
     private void Update() {
         DistanceTravelled += CurrentSpeed * GameTime.DeltaTime;
+        Time += TimeSpeed * GameTime.DeltaTime;
         // Junk chance: {CurrentJunkDistribution}\n
         DistanceText.text = $"<b>[{(Stage != TurtleStage.ShouldDieSoon ? Stage : TurtleStage.Adult).ToString()}]</b>\nDistance travelled:\n<b><color=#2ECC71>{Math.Round(DistanceTravelled, 2):.00}m</color></b>";
         
         // Update stage
-        if (DistanceTravelled >= TeenDistance && DistanceTravelled < AdultDistance) Stage = TurtleStage.Teen;
-        else if (DistanceTravelled >= AdultDistance) Stage = TurtleStage.Adult;
-        else if (DistanceTravelled >= EssentialDeathDistance) Stage = TurtleStage.ShouldDieSoon;
+        if (Time >= TeenConversionTime && Time < AdultConversionTime) Stage = TurtleStage.Teen;
+        else if (Time >= AdultConversionTime) Stage = TurtleStage.Adult;
+        else if (Time >= EssentialDeathTime) Stage = TurtleStage.ShouldDieSoon;
         else Stage = TurtleStage.Hatchling;
         
         // Update junk distribution and item spawn chance
@@ -59,16 +67,16 @@ public class TurtleStats : MonoBehaviour {
     public void UpdateChances() {
         switch (Stage) {
             case TurtleStage.Hatchling:
-                CurrentJunkDistribution = Mathf.Lerp(HatchlingTeenJunkDistribution.Min, HatchlingTeenJunkDistribution.Max, DistanceTravelled / TeenDistance);
-                CurrentItemSpawningChance = Mathf.Lerp(HatchlingTeenItemChance.Min, HatchlingTeenItemChance.Max, DistanceTravelled / TeenDistance);
+                CurrentJunkDistribution = Mathf.Lerp(HatchlingTeenJunkDistribution.Min, HatchlingTeenJunkDistribution.Max, Time / TeenConversionTime);
+                CurrentItemSpawningChance = Mathf.Lerp(HatchlingTeenItemChance.Min, HatchlingTeenItemChance.Max, Time / TeenConversionTime);
                 break;
             case TurtleStage.Teen:
-                CurrentJunkDistribution = Mathf.Lerp(TeenAdultJunkDistribution.Min, TeenAdultJunkDistribution.Max, (DistanceTravelled - TeenDistance) / (AdultDistance - TeenDistance));
-                CurrentItemSpawningChance = Mathf.Lerp(TeenAdultItemChance.Min, TeenAdultItemChance.Max, (DistanceTravelled - TeenDistance) / (AdultDistance - TeenDistance));
+                CurrentJunkDistribution = Mathf.Lerp(TeenAdultJunkDistribution.Min, TeenAdultJunkDistribution.Max, (Time - TeenConversionTime) / (AdultConversionTime - TeenConversionTime));
+                CurrentItemSpawningChance = Mathf.Lerp(TeenAdultItemChance.Min, TeenAdultItemChance.Max, (Time - TeenConversionTime) / (AdultConversionTime - TeenConversionTime));
                 break;
             case TurtleStage.Adult:
-                CurrentJunkDistribution = Mathf.Lerp(PostAdultJunkDistribution.Min, PostAdultJunkDistribution.Max, (DistanceTravelled - AdultDistance) / (EssentialDeathDistance - AdultDistance));
-                CurrentItemSpawningChance = Mathf.Lerp(PostAdultItemChance.Min, PostAdultItemChance.Max, (DistanceTravelled - AdultDistance) / (EssentialDeathDistance - AdultDistance));
+                CurrentJunkDistribution = Mathf.Lerp(PostAdultJunkDistribution.Min, PostAdultJunkDistribution.Max, (Time - AdultConversionTime) / (EssentialDeathTime - AdultConversionTime));
+                CurrentItemSpawningChance = Mathf.Lerp(PostAdultItemChance.Min, PostAdultItemChance.Max, (Time - AdultConversionTime) / (EssentialDeathTime - AdultConversionTime));
                 break;
             case TurtleStage.ShouldDieSoon:
                 CurrentJunkDistribution = PostAdultJunkDistribution.Max;

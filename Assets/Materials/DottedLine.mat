@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DottedLine
+  m_Shader: {fileID: 4800000, guid: 20e4ce6558c5cd14c9644ebab98a586b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_5FB14EC:
+        m_Texture: {fileID: 2800000, guid: d7f8c06591f2afb45bb79f8bf732ef3b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d7f8c06591f2afb45bb79f8bf732ef3b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_496C256B: 0.7
+    - Vector1_56A5BA41: 1
+    - Vector1_67025120: 0
+    - Vector1_67EC9D0: 1
+    - Vector1_940F74AE: 10
+    - Vector1_9AD225F9: 0.7
+    - Vector1_CCDF02DB: 0.5
+    - Vector1_DF58D52C: 20
+    - _ColorMask: 15
+    - _Frequency: 0.5
+    - _Scale: 10
+    - _Spacing: 0.5
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TimeOffset: 0
+    - _TimeScale: 0
+    m_Colors:
+    - Color_1880C05F: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}

@@ -15,7 +15,7 @@ public class PostProcessingTransition : MonoBehaviour {
     }
 
     private void Update() {
-        currentWeight = Mathf.Clamp01(TurtleStats.Instance.DistanceTravelled / TurtleStats.Instance.EssentialDeathDistance);
+        currentWeight = Mathf.Clamp01(TurtleStats.Instance.DistanceTravelled / TurtleStats.Instance.EssentialDeathTime);
         VolumeA.weight = 1f - currentWeight;
         VolumeB.weight = currentWeight;
     }

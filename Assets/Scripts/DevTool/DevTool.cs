@@ -101,9 +101,9 @@ public class DevTool : MonoBehaviour {
         sb.AppendLine($"TurtleHealth.HealingAmount: {TurtleHealth.HealingAmount}");
         sb.AppendLine($"TurtleHealth.HealingThreshold: {TurtleHealth.HealingThreshold}");
         sb.AppendLine($"TurtleStats.NormalSpeed: {TurtleStats.NormalSpeed}");
-        sb.AppendLine($"TurtleStats.TeenDistance: {TurtleStats.TeenDistance}");
-        sb.AppendLine($"TurtleStats.AdultDistance: {TurtleStats.AdultDistance}");
-        sb.AppendLine($"TurtleStats.EssentialDeathDistance: {TurtleStats.EssentialDeathDistance}");
+        sb.AppendLine($"TurtleStats.TeenDistance: {TurtleStats.TeenConversionTime}");
+        sb.AppendLine($"TurtleStats.AdultDistance: {TurtleStats.AdultConversionTime}");
+        sb.AppendLine($"TurtleStats.EssentialDeathDistance: {TurtleStats.EssentialDeathTime}");
         sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Min: {TurtleStats.HatchlingTeenJunkDistribution.Min}");
         sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Max: {TurtleStats.HatchlingTeenJunkDistribution.Max}");
         sb.AppendLine($"TurtleStats.TeenAdultJunkDistribution.Min: {TurtleStats.TeenAdultJunkDistribution.Min}");
@@ -143,9 +143,9 @@ public class DevTool : MonoBehaviour {
         HealingThreshold.value = TurtleHealth.HealingThreshold;
 
         Speed.text = $"{TurtleStats.NormalSpeed:0.00}";
-        TeenDist.text = $"{TurtleStats.TeenDistance:0.00}";
-        AdultDist.text = $"{TurtleStats.AdultDistance:0.00}";
-        DeathDist.text = $"{TurtleStats.EssentialDeathDistance:0.00}";
+        TeenDist.text = $"{TurtleStats.TeenConversionTime:0.00}";
+        AdultDist.text = $"{TurtleStats.AdultConversionTime:0.00}";
+        DeathDist.text = $"{TurtleStats.EssentialDeathTime:0.00}";
         HatchlinkJunkMin.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Min:0.00}";
         HatchlinkJunkMax.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Max:0.00}";
         TeenJunkMin.text = $"{TurtleStats.TeenAdultJunkDistribution.Min:0.00}";
@@ -178,9 +178,9 @@ public class DevTool : MonoBehaviour {
         TurtleHealth.HealingAmount = float.Parse(HealingAmount.text);
         TurtleHealth.HealingThreshold = HealingThreshold.value;
         TurtleStats.NormalSpeed = float.Parse(Speed.text);
-        TurtleStats.TeenDistance = float.Parse(TeenDist.text);
-        TurtleStats.AdultDistance = float.Parse(AdultDist.text);
-        TurtleStats.EssentialDeathDistance = float.Parse(DeathDist.text);
+        TurtleStats.TeenConversionTime = float.Parse(TeenDist.text);
+        TurtleStats.AdultConversionTime = float.Parse(AdultDist.text);
+        TurtleStats.EssentialDeathTime = float.Parse(DeathDist.text);
         TurtleStats.HatchlingTeenJunkDistribution.Min = float.Parse(HatchlinkJunkMin.text);
         TurtleStats.HatchlingTeenJunkDistribution.Max = float.Parse(HatchlinkJunkMax.text);
         TurtleStats.TeenAdultJunkDistribution.Min = float.Parse(TeenJunkMin.text);

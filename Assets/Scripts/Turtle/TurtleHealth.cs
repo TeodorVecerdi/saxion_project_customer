@@ -42,6 +42,9 @@ public class TurtleHealth : MonoBehaviour {
         }
 
         Starvation(HealthStarvation, HungerStarvation);
+
+        Health = Mathf.Clamp(Health, 0f, MaxHealth);
+        Hunger = Mathf.Clamp(Hunger, 0f, MaxHunger);
     }
 
     public void ChangeHealth(float amount) {
