@@ -20,6 +20,7 @@ public class ChunkBuilder : MonoBehaviour {
     }
 
     public void BuildChunk() {
+        TurtleStats.Instance.UpdateChances();
         foreach (var row in SpawnRows) {
             for (var i = 0; i < MaxItems; i++) {
                 if(!MiscUtils.RandomBoolWeighted(TurtleStats.Instance.CurrentItemSpawningChance)) continue;

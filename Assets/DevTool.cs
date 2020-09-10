@@ -10,11 +10,13 @@ public class DevTool : MonoBehaviour {
     [Header("References")]
     public RectTransform TextInputTransform;
     public TMP_InputField ExportInput;
-    
+
     public DamageVFX DamageVFX;
     public TurtleHealth TurtleHealth;
     public TurtleStats TurtleStats;
     public TurtleBoost TurtleBoost;
+    [Space]
+    public TMP_InputField FogDensity;
     [Header("DamageVFX")]
     public TMP_InputField EffectDuration;
     public Slider VignetteIntensity;
@@ -52,9 +54,17 @@ public class DevTool : MonoBehaviour {
     private bool isShown;
 
     private void Awake() {
-        if(Instance != null) DestroyImmediate(transform.parent.gameObject);
-        Instance = this;
         DontDestroyOnLoad(transform.parent.gameObject);
+        if (Instance != null) {
+            Instance.DamageVFX = FindObjectOfType<DamageVFX>();
+            Instance.TurtleHealth = FindObjectOfType<TurtleHealth>();
+            Instance.TurtleStats = FindObjectOfType<TurtleStats>();
+            Instance.TurtleBoost = FindObjectOfType<TurtleBoost>();
+            Instance.UpdateValues();
+            Destroy(transform.parent.gameObject);
+        } else {
+            Instance = this;
+        }
     }
 
     private void Start() {
@@ -68,6 +78,7 @@ public class DevTool : MonoBehaviour {
             GameTime.IsPaused = isShown;
             transform.localScale = isShown ? Vector3.one : Vector3.zero;
         }
+
         UpdateValues();
     }
 
@@ -78,6 +89,7 @@ public class DevTool : MonoBehaviour {
     public void OnExport() {
         TextInputTransform.localScale = Vector3.one;
         var sb = new StringBuilder();
+        sb.AppendLine($"RenderSettings.fogDensity: {RenderSettings.fogDensity}");
         sb.AppendLine($"DamageVFX.EffectHalfDuration: {DamageVFX.EffectHalfDuration}");
         sb.AppendLine($"DamageVFX.VignetteIntensity: {DamageVFX.VignetteIntensity}");
         sb.AppendLine($"DamageVFX.CameraShakeMagnitude: {DamageVFX.CameraShakeMagnitude}");
@@ -116,22 +128,24 @@ public class DevTool : MonoBehaviour {
     }
 
     private void Setup() {
-        EffectDuration.text = $"{DamageVFX.EffectHalfDuration * 2f:.00}";
-        VignetteIntensity.value = DamageVFX.VignetteIntensity;
-        CameraShakeMag.text = $"{DamageVFX.CameraShakeMagnitude:.00}";
-        InvincibilityTime.text = $"{DamageVFX.InvincibilityDuration:.00}";
+        FogDensity.text = $"{RenderSettings.fogDensity:0.00}";
 
-        MaxHealth.text = $"{TurtleHealth.MaxHealth:.00}";
-        MaxHunger.text = $"{TurtleHealth.MaxHunger:.00}";
-        Starvation.text = $"{TurtleHealth.HungerStarvation:.00}";
-        HealthLoss.text = $"{TurtleHealth.HealthStarvation:.00}";
-        HealingAmount.text = $"{TurtleHealth.HealingAmount:.00}";
+        EffectDuration.text = $"{DamageVFX.EffectHalfDuration * 2f:0.00}";
+        VignetteIntensity.value = DamageVFX.VignetteIntensity;
+        CameraShakeMag.text = $"{DamageVFX.CameraShakeMagnitude:0.00}";
+        InvincibilityTime.text = $"{DamageVFX.InvincibilityDuration:0.00}";
+
+        MaxHealth.text = $"{TurtleHealth.MaxHealth:0.00}";
+        MaxHunger.text = $"{TurtleHealth.MaxHunger:0.00}";
+        Starvation.text = $"{TurtleHealth.HungerStarvation:0.00}";
+        HealthLoss.text = $"{TurtleHealth.HealthStarvation:0.00}";
+        HealingAmount.text = $"{TurtleHealth.HealingAmount:0.00}";
         HealingThreshold.value = TurtleHealth.HealingThreshold;
 
-        Speed.text = $"{TurtleStats.NormalSpeed:.00}";
-        TeenDist.text = $"{TurtleStats.TeenDistance:.00}";
-        AdultDist.text = $"{TurtleStats.AdultDistance:.00}";
-        DeathDist.text = $"{TurtleStats.EssentialDeathDistance:.00}";
+        Speed.text = $"{TurtleStats.NormalSpeed:0.00}";
+        TeenDist.text = $"{TurtleStats.TeenDistance:0.00}";
+        AdultDist.text = $"{TurtleStats.AdultDistance:0.00}";
+        DeathDist.text = $"{TurtleStats.EssentialDeathDistance:0.00}";
         HatchlinkJunkMin.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Min:0.00}";
         HatchlinkJunkMax.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Max:0.00}";
         TeenJunkMin.text = $"{TurtleStats.TeenAdultJunkDistribution.Min:0.00}";
@@ -145,12 +159,14 @@ public class DevTool : MonoBehaviour {
         AdultItemChanceMin.text = $"{TurtleStats.PostAdultItemChance.Min:0.00}";
         AdultItemChanceMax.text = $"{TurtleStats.PostAdultItemChance.Max:0.00}";
 
-        BoostSpeed.text = $"{TurtleBoost.BoostSpeed:.00}";
-        BoostDuration.text = $"{TurtleBoost.BoostDuration:.00}";
-        BoostCooldown.text = $"{TurtleBoost.BoostCooldown:.00}";
+        BoostSpeed.text = $"{TurtleBoost.BoostSpeed:0.00}";
+        BoostDuration.text = $"{TurtleBoost.BoostDuration:0.00}";
+        BoostCooldown.text = $"{TurtleBoost.BoostCooldown:0.00}";
     }
 
     private void UpdateValues() {
+        RenderSettings.fogDensity = float.Parse(FogDensity.text);
+
         DamageVFX.EffectHalfDuration = float.Parse(EffectDuration.text) / 2f;
         DamageVFX.VignetteIntensity = VignetteIntensity.value;
         DamageVFX.CameraShakeMagnitude = float.Parse(CameraShakeMag.text);

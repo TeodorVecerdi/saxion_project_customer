@@ -53,6 +53,10 @@ public class TurtleStats : MonoBehaviour {
         else Stage = TurtleStage.Hatchling;
         
         // Update junk distribution and item spawn chance
+        UpdateChances();
+    }
+
+    public void UpdateChances() {
         switch (Stage) {
             case TurtleStage.Hatchling:
                 CurrentJunkDistribution = Mathf.Lerp(HatchlingTeenJunkDistribution.Min, HatchlingTeenJunkDistribution.Max, DistanceTravelled / TeenDistance);
@@ -71,8 +75,6 @@ public class TurtleStats : MonoBehaviour {
                 CurrentItemSpawningChance = PostAdultItemChance.Max;
                 break;
         }
-        
-        
     }
 }
 
