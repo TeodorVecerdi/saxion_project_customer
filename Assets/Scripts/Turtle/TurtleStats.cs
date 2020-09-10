@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurtleStats : MonoBehaviour {
     [Header("Stats")]
     public float DistanceTravelled;
+    public float NormalSpeed = 2;
     public float CurrentSpeed = 2;
 
     [Header("Stage")]
@@ -36,6 +37,7 @@ public class TurtleStats : MonoBehaviour {
     }
 
     private void Start() {
+        CurrentSpeed = NormalSpeed;
         DistanceTravelled = 0f;
     }
 

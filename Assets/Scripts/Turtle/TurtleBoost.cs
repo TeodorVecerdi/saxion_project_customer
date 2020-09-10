@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TurtleBoost : MonoBehaviour {
@@ -10,7 +11,6 @@ public class TurtleBoost : MonoBehaviour {
     public float BoostCooldown = 4f;
     
     [Header("Boost Settings")]
-    public float NormalSpeed = 2f;
     public float BoostSpeed = 4f;
     public float NormalFOV = 50f;
     public float BoostFOV = 65f;
@@ -41,7 +41,6 @@ public class TurtleBoost : MonoBehaviour {
         if (isBoostAvailable && Input.GetKeyDown(KeyCode.B)) {
             isBoostAvailable = false;
             boostTimer = 0f;
-
             isBoosting = true;
             transitionTimer = isTransitionActive ? transitionTimer : 0f;
             isTransitionActive = true;
@@ -87,10 +86,10 @@ public class TurtleBoost : MonoBehaviour {
         float currentSpeed;
         float currentFOV;
         if (transitionTimeDirection == 1) {
-            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
+            currentSpeed = Mathfx.Hermite(TurtleStats.Instance.NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
             currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TransitionTime);
         } else {
-            currentSpeed = Mathfx.Hermite(NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
+            currentSpeed = Mathfx.Hermite(TurtleStats.Instance.NormalSpeed, BoostSpeed, transitionTimer / TransitionTime);
             currentFOV = Mathfx.Hermite(NormalFOV, BoostFOV, transitionTimer / TransitionTime);
         }
 
@@ -101,7 +100,7 @@ public class TurtleBoost : MonoBehaviour {
         // Check if transition ended
         if (transitionTimer < 0f) {
             isTransitionActive = false;
-            TurtleStats.Instance.CurrentSpeed = NormalSpeed;
+            TurtleStats.Instance.CurrentSpeed = TurtleStats.Instance.NormalSpeed;
             Camera.fieldOfView = NormalFOV;
         } else if (transitionTimer > TransitionTime) {
             isTransitionActive = false;
