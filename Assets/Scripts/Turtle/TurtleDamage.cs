@@ -4,8 +4,8 @@ using UnityEngine;
 public class TurtleDamage : MonoBehaviour {
     public DamageVFX DamageVFX;
     [HideInInspector] public bool IsInvincible;
-    private bool AteTrashOneFrameTrigger;
-    public bool JustAteTrash;
+    private bool ateTrashOneFrameTrigger;
+    private bool gotByPoachersOneFrameTrigger;
     
     private TurtleHealth turtleHealth;
 
@@ -17,9 +17,17 @@ public class TurtleDamage : MonoBehaviour {
         if (TurtleStats.Instance.JustAteTrash) {
             TurtleStats.Instance.JustAteTrash = false;
         }
-        if (AteTrashOneFrameTrigger) {
-            AteTrashOneFrameTrigger = false;
+
+        if (TurtleStats.Instance.JustGotByPoachers) {
+            TurtleStats.Instance.JustGotByPoachers = false;
+        }
+        if (ateTrashOneFrameTrigger) {
+            ateTrashOneFrameTrigger = false;
             TurtleStats.Instance.JustAteTrash = true;
+        }
+        if (gotByPoachersOneFrameTrigger) {
+            gotByPoachersOneFrameTrigger = false;
+            TurtleStats.Instance.JustGotByPoachers = true;
         }
     }
 
@@ -32,9 +40,11 @@ public class TurtleDamage : MonoBehaviour {
         turtleHealth.ChangeHunger(spawnableItem.FoodAmount);
         if (other.gameObject.CompareTag("Junk")) {
             DamageVFX.Trigger(this);
-            AteTrashOneFrameTrigger = true;
+            ateTrashOneFrameTrigger = true;
+        } else if (other.gameObject.CompareTag("Poacher")) {
+            DamageVFX.Trigger(this);
+            gotByPoachersOneFrameTrigger = true;
         }
-        
         Destroy(other.gameObject);
     }
 }
