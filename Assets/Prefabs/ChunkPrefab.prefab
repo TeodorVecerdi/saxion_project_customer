@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 762067994178442555, guid: 4d2fa7afb6e89b04ea436662f94a841d, type: 3}
   - {fileID: 4024089400883954557, guid: 9740d9d4b13b83d47a18e25fe6938d03, type: 3}
   SpawnRows: []
-  MaxSpawnWidth: 5
+  MaxSpawnWidth: 4
   MaxSpawnHeight: 2
   MaxItems: 2
 --- !u!1 &4949584985680093667

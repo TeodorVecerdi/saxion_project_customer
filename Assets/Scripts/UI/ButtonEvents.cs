@@ -14,26 +14,36 @@ public class ButtonEvents : MonoBehaviour
     }
 
     public void OnStartGameClick() {
+        CursorController.Instance.Default();
+        PlayerPrefs.SetString("name", "Bubbles");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("NameMenu", LoadSceneMode.Single);
+    }
+
+    public void OnRetryClick() {
+        CursorController.Instance.Default();
         SceneManager.LoadScene("NameMenu", LoadSceneMode.Single);
     }
 
     public void OnPlayClick(TMP_InputField inputField) {
-        string turtleName;
-        turtleName = inputField.text;
-        PlayerPrefs.SetString("name", turtleName);
+        CursorController.Instance.Default();
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
     public void OnSettingsClick() {
-        if (SceneManager.GetActiveScene().name == "WorldGen")
+        if (SceneManager.GetActiveScene().name == "Game") {
+            CursorController.Instance.Default();
             GameTime.IsPaused = true;
+        }
         SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
     }
 
     public void OnBackBtnClick()
     {
-        if (GameTime.IsPaused)
+        if (GameTime.IsPaused) {
+            CursorController.Instance.Game();            
             GameTime.IsPaused = false;
+        }
         SceneManager.UnloadSceneAsync("SettingsMenu");
     }
 
@@ -44,6 +54,7 @@ public class ButtonEvents : MonoBehaviour
 
     public void OnMainMenuClick()
     { 
+        CursorController.Instance.Default();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
@@ -60,11 +71,6 @@ public class ButtonEvents : MonoBehaviour
     public void OnLogoClick()
     {
         //website link
-    }
-
-    public void OnExitClick()
-    {
-        Application.Quit();
     }
 
     public void OnMouseEnter()

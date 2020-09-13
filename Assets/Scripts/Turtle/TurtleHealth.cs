@@ -47,9 +47,12 @@ public class TurtleHealth : MonoBehaviour {
         Hunger = Mathf.Clamp(Hunger, 0f, MaxHunger);
     }
 
+    private void LateUpdate() {
+        CheckDeath();
+    }
+
     public void ChangeHealth(float amount) {
         Health = Mathf.Clamp(Health + amount, 0, MaxHealth);
-        CheckDeath();
     }
 
     public void ChangeHunger(float amount) {
@@ -64,11 +67,18 @@ public class TurtleHealth : MonoBehaviour {
     }
 
     private void CheckDeath() {
-        if (Health != 0)
+        if (Health > 0f)
             return;
         
         runScore = TurtleStats.Instance.DistanceTravelled;
         PlayerPrefs.SetFloat("CurrentScore", runScore);
+        if (Hunger <= 0f && !TurtleStats.Instance.JustAteTrash) {
+            PlayerPrefs.SetInt("deathScenario", 1);
+        } else if (TurtleStats.Instance.JustAteTrash) {
+            PlayerPrefs.SetInt("deathScenario", 2);
+        } else if (TurtleStats.Instance.JustGotByPoachers) {
+            PlayerPrefs.SetInt("deathScenario", 3);
+        }
         PlayerPrefs.Save();
         Debug.Log("u ded");
         SceneManager.LoadScene("DeathMenu", LoadSceneMode.Single);

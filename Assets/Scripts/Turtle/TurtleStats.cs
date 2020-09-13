@@ -34,6 +34,10 @@ public class TurtleStats : MonoBehaviour {
     [Header("Other References")]
     public TMP_Text DistanceText;
 
+    [Space]
+    public bool JustAteTrash;
+    public bool JustGotByPoachers;
+
     public static TurtleStats Instance { get; private set; }
 
     private void Awake() {

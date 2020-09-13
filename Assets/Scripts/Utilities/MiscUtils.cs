@@ -42,4 +42,15 @@ public static class MiscUtils {
         var y = (value.y - fromSource.y) / (toSource.y - fromSource.y) * (toTarget.y - fromTarget.y) + fromTarget.y;
         return new Vector2(x, y);
     }
+
+    public static Texture2D ResizeTexture(Texture2D texture, int targetWidth, int targetHeight, bool alphaIsTransparency = false, bool mipChain = true) {
+        var renderTexture = new RenderTexture(targetWidth, targetHeight, 32);
+        RenderTexture.active = renderTexture;
+        Graphics.Blit(texture, renderTexture);
+        var result = new Texture2D(targetWidth, targetHeight, TextureFormat.RGBA32, mipChain);
+        result.alphaIsTransparency = alphaIsTransparency;
+        result.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
+        result.Apply();
+        return result;
+    }
 }
