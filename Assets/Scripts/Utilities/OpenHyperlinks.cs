@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -13,7 +14,7 @@ using UnityEditor;
 
 // somewhat based upon the TextMesh Pro example script: TMP_TextSelector_B
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler {
+public class OpenHyperlinks : MonoBehaviour, IPointerDownHandler {
     public bool doesColorChangeOnHover = true;
     public Color hoverColor = new Color(60f / 255f, 120f / 255f, 1f);
 
@@ -70,16 +71,19 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler {
         // Debug.Log(string.Format("isHovering: {0}, link: {1}", isHoveringOver, linkIndex));
     }
 
-    public void OnPointerClick(PointerEventData eventData) {
-        // Debug.Log("Click at POS: " + eventData.position + "  World POS: " + eventData.worldPosition);
-
+    [DllImport("__Internal")]
+    private static extern void openWindow(string url);
+    public void OnPointerDown(PointerEventData eventData) {
         int linkIndex = TMP_TextUtilities.FindIntersectingLink(pTextMeshPro, Input.mousePosition, pCamera);
         if (linkIndex != -1) {
             // was a link clicked?
             TMP_LinkInfo linkInfo = pTextMeshPro.textInfo.linkInfo[linkIndex];
 
-            // open the link id as a url, which is the metadata we added in the text field
+#if UNITY_EDITOR
             Application.OpenURL(linkInfo.GetLinkID());
+#else
+            openWindow(linkInfo.GetLinkID());
+#endif
         }
     }
 

@@ -25,6 +25,26 @@ public class DBConnection : IDisposable {
                 }
             }
 
+            /*using (var command = new MySqlCommand($"INSERT INTO highscore (UUID, name, death_reason, score)" + "VALUES(@guid,@name,@reason,@score)")) {
+                command.Parameters.AddWithValue("guid", Guid.NewGuid().ToString());
+                command.Parameters.AddWithValue("name", username);
+                command.Parameters.AddWithValue("reason", deathReason);
+                command.Parameters.AddWithValue("score", highscore);
+                // ..... bla bla bla
+            }*/
+
+    }
+
+    public void InsertHighScores(string username, string deathReason, float highscore)
+    {
+        using (var command = new MySqlCommand($"INSERT INTO highscore (UUID, name, death_reason, score)" + "VALUES(@guid,@name,@reason,@score)"))
+        {
+            command.Parameters.AddWithValue("guid", Guid.NewGuid().ToString());
+            command.Parameters.AddWithValue("name", username);
+            command.Parameters.AddWithValue("reason", deathReason);
+            command.Parameters.AddWithValue("score", highscore);
+            // ..... bla bla bla
+        }
     }
 
     public void Dispose() {

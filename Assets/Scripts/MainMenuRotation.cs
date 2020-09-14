@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MainMenuRotation : MonoBehaviour {
     public float RotationSpeed = 0.5f;
+    public Material Skybox;
+    private static readonly int RotationProperty = Shader.PropertyToID("_Rotation");
 
     private void Update() {
-        transform.localEulerAngles += Vector3.up * RotationSpeed;
-        if (transform.localEulerAngles.y >= 360f) {
-            transform.localEulerAngles -= Vector3.up * 360f;
+        var currentRotation = Skybox.GetFloat(RotationProperty);
+        currentRotation += RotationSpeed;
+        if (currentRotation >= 360f) {
+            currentRotation -=  360f;
         }
+
+        Skybox.SetFloat(RotationProperty, currentRotation);
     }
 }

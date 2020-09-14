@@ -139,3 +139,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 0.02
+  Skybox: {fileID: 2100000, guid: 95e6f57d97e0e0c48aa135e22d7f1eb8, type: 2}
