@@ -12,6 +12,8 @@ public class Highscore : MonoBehaviour
 
     private void Start() {
         OnDeath();
+        //Connection connection = new Connection();
+        //connection.connect();
     }
 
     private void OnDeath() {

@@ -1,13 +1,19 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(TurtleSlownessEffect))]
 public class TurtleDamage : MonoBehaviour {
     public DamageVFX DamageVFX;
     [HideInInspector] public bool IsInvincible;
     private bool ateTrashOneFrameTrigger;
     private bool gotByPoachersOneFrameTrigger;
     
+    private TurtleSlownessEffect slownessEffect;
     private TurtleHealth turtleHealth;
+
+    private void Awake() {
+        slownessEffect = GetComponent<TurtleSlownessEffect>();
+    }
 
     private void Start() {
         turtleHealth = TurtleHealth.Instance;
@@ -42,7 +48,8 @@ public class TurtleDamage : MonoBehaviour {
             DamageVFX.Trigger(this);
             ateTrashOneFrameTrigger = true;
         } else if (other.gameObject.CompareTag("Poacher")) {
-            DamageVFX.Trigger(this);
+            DamageVFX.Trigger(this, extreme: true);
+            slownessEffect.Trigger();
             gotByPoachersOneFrameTrigger = true;
         }
         Destroy(other.gameObject);

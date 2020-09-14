@@ -65,12 +65,12 @@ public class ButtonEvents : MonoBehaviour
 
     public void OnSeeTurtlesClick()
     {
-        //website link
+        Application.OpenURL("https://www.seeturtles.org/help-save-turtles/");
     }
 
     public void OnLogoClick()
     {
-        //website link
+       //no click :'(
     }
 
     public void OnMouseEnter()

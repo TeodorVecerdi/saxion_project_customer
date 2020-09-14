@@ -17,12 +17,14 @@ public class DamageVFX : MonoBehaviour {
     public float CameraShakeMagnitude = 1f;
     public float CameraShakeRoughness = 2.5f;
     public float InvincibilityDuration = 2f;
+    public float ExtremeMultiplier = 2f;
 
     private Vignette vignetteA;
     private Vignette vignetteB;
-    
+
     private bool isEffectActive;
     private bool isInvicibilityActive;
+    private bool isExtreme;
     private float effectTimer;
     private int fadeDirection;
     private float invincibilityTimer;
@@ -33,19 +35,22 @@ public class DamageVFX : MonoBehaviour {
         VolumeB.profile.TryGet(out vignetteB);
     }
 
-    public void Trigger(TurtleDamage turtleDamage) {
+    public void Trigger(TurtleDamage turtleDamage, bool extreme = false) {
         this.turtleDamage = turtleDamage;
         turtleDamage.IsInvincible = true;
         isInvicibilityActive = true;
         invincibilityTimer = 0f;
+        isExtreme = extreme;
         
         isEffectActive = true;
         effectTimer = 0f;
         fadeDirection = 1;
-        
-        CameraShaker.Shake(CameraShakeMagnitude, CameraShakeRoughness, EffectHalfDuration/2f, EffectHalfDuration/2f, EffectHalfDuration);
+        if (extreme)
+            CameraShaker.Shake(CameraShakeMagnitude * ExtremeMultiplier, CameraShakeRoughness * ExtremeMultiplier, EffectHalfDuration * ExtremeMultiplier / 2f, EffectHalfDuration * ExtremeMultiplier / 2f, EffectHalfDuration * ExtremeMultiplier);
+        else
+            CameraShaker.Shake(CameraShakeMagnitude, CameraShakeRoughness, EffectHalfDuration / 2f, EffectHalfDuration / 2f, EffectHalfDuration);
     }
-    
+
     private void Update() {
         if (isInvicibilityActive) {
             invincibilityTimer += GameTime.DeltaTime;
@@ -54,6 +59,7 @@ public class DamageVFX : MonoBehaviour {
                 turtleDamage.IsInvincible = false;
             }
         }
+
         if (isEffectActive) {
             effectTimer += fadeDirection * GameTime.DeltaTime;
             UpdateEffect();
@@ -68,7 +74,7 @@ public class DamageVFX : MonoBehaviour {
     }
 
     private void UpdateEffect() {
-        var intensity = VignetteIntensity * effectTimer / EffectHalfDuration;
+        var intensity = (isExtreme ? ExtremeMultiplier : 1) * VignetteIntensity * effectTimer / EffectHalfDuration;
         vignetteA.intensity.value = intensity;
         vignetteB.intensity.value = intensity;
     }

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SeaAlgae
-  m_Shader: {fileID: -6465566751694194690, guid: 6e924e00d7e0d9d4b912ecbda7da9618,
+  m_Shader: {fileID: -6465566751694194690, guid: 91ae9fe4af13ca949bb9f5f14f0d24cf,
     type: 3}
   m_ShaderKeywords: _NORMALMAP _OCCLUSIONMAP
   m_LightmapFlags: 4
@@ -33,7 +33,27 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_19F66980:
+        m_Texture: {fileID: 2800000, guid: 40bd91c1fff98504c884f66252f681eb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_71F5501E:
+        m_Texture: {fileID: 2800000, guid: 61cc1c23027b2e14cace71813a5da539, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_7B62EF60:
+        m_Texture: {fileID: 2800000, guid: 5630ab8b316550e4988df8f3ad196f72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_965A5150:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A86C87CA:
+        m_Texture: {fileID: 2800000, guid: 8702e17661552ce4d8884e6059fdbab6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_FFD9DD8E:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Occlusion:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5630ab8b316550e4988df8f3ad196f72, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -74,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 61cc1c23027b2e14cace71813a5da539, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -84,8 +104,14 @@ Material:
     m_Floats:
     - Boolean_5D6AE3AD: 0
     - Boolean_6145D1B7: 0
+    - Vector1_67097CA9: 1
+    - Vector1_7DC16D6B: 0.5
+    - Vector1_81E56E9F: 0
+    - Vector1_8B64DB5C: 2
+    - Vector1_9690047E: 0.7
     - Vector1_A43B2339: 15
-    - Vector1_E7553A13: 1.19
+    - Vector1_E7553A13: 1.34
+    - Vector1_FF9EA6E0: 10
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 10
@@ -109,9 +135,11 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_B8C19A80: {r: 0, g: 0, b: 0, a: 0}
+    - Color_D01A1CEB: {r: 0, g: 1, b: 0, a: 1}
     - Vector2_6D10F1D1: {r: 0.5, g: 0.5, b: 0, a: 0}
     - Vector2_93203CE5: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_AEB76EF9: {r: 1, g: 0, b: 0, a: 0}
+    - Vector3_24A2952E: {r: 0.3, g: 0.05, b: 1, a: 0}
     - _BaseColor: {r: 0.25187558, g: 1, b: 0.25, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0.2936552, g: 0.2690761, b: 0.2690761, a: 1}

@@ -72,13 +72,13 @@ public class TurtleHealth : MonoBehaviour {
         
         runScore = TurtleStats.Instance.DistanceTravelled;
         PlayerPrefs.SetFloat("CurrentScore", runScore);
-        if (Hunger <= 0f && !TurtleStats.Instance.JustAteTrash) {
-            PlayerPrefs.SetInt("deathScenario", 1);
-        } else if (TurtleStats.Instance.JustAteTrash) {
+        if (TurtleStats.Instance.JustAteTrash) {
             PlayerPrefs.SetInt("deathScenario", 2);
         } else if (TurtleStats.Instance.JustGotByPoachers) {
             PlayerPrefs.SetInt("deathScenario", 3);
-        }
+        } else {
+            PlayerPrefs.SetInt("deathScenario", 1);
+        } 
         PlayerPrefs.Save();
         Debug.Log("u ded");
         SceneManager.LoadScene("DeathMenu", LoadSceneMode.Single);

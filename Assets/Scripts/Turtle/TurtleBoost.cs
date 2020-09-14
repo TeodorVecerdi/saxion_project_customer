@@ -23,6 +23,19 @@ public class TurtleBoost : MonoBehaviour {
     public Image BoostIconImage;
     public Image BorderImage;
 
+    private bool disabled;
+    [HideInInspector] public bool Disabled {
+        get => disabled;
+        set {
+            disabled = value;
+            if (disabled) {
+                Disable();
+            } else {
+                Enable();
+            }
+        }
+    }
+
     // Boost variables
     private bool isBoostAvailable = true;
     private bool isBoosting; 
@@ -38,7 +51,7 @@ public class TurtleBoost : MonoBehaviour {
     private float transitionTimer;
 
     private void Update() {
-        if (isBoostAvailable && Input.GetKeyDown(KeyCode.B)) {
+        if (isBoostAvailable && Input.GetKeyDown(KeyCode.B) && !Disabled) {
             isBoostAvailable = false;
             boostTimer = 0f;
             isBoosting = true;
@@ -107,5 +120,23 @@ public class TurtleBoost : MonoBehaviour {
             TurtleStats.Instance.CurrentSpeed = BoostSpeed;
             Camera.fieldOfView = BoostFOV;
         }
+    }
+
+    private void Disable() {
+        isTransitionActive = false;
+        isBoosting = false;
+        isCooldownActive = false;
+        isBoostAvailable = false;
+        TurtleStats.Instance.CurrentSpeed = TurtleStats.Instance.NormalSpeed;
+        Camera.fieldOfView = NormalFOV;
+        BoostIconImage.color = CooldownColor;
+        BorderImage.color = CooldownColor;
+        CooldownProgressImage.fillAmount = 0f;
+    }
+
+    private void Enable() {
+        isBoostAvailable = true;
+        BoostIconImage.color = AvailableColor;
+        BorderImage.color = AvailableColor;
     }
 }

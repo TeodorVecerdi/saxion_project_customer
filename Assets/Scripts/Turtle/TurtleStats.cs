@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(TurtleTransition))]
 public class TurtleStats : MonoBehaviour {
     [Header("Stats")]
     public float DistanceTravelled;
@@ -30,6 +31,9 @@ public class TurtleStats : MonoBehaviour {
     [MinMaxSlider(0f, 1f)] public MinMax HatchlingTeenItemChance = new MinMax(0.5f, 0.75f);
     [MinMaxSlider(0f, 1f)] public MinMax TeenAdultItemChance = new MinMax(0.75f, 1f);
     [MinMaxSlider(0f, 1f)] public MinMax PostAdultItemChance = new MinMax(1f, 1f);
+    [Space]
+    public float CurrentPoacherChance = 0f;
+    [MinMaxSlider(0f, 1f)] public MinMax PoacherChance = new MinMax(0.01f, 0.1f);
 
     [Header("Other References")]
     public TMP_Text DistanceText;
@@ -38,12 +42,16 @@ public class TurtleStats : MonoBehaviour {
     public bool JustAteTrash;
     public bool JustGotByPoachers;
 
+    private TurtleTransition turtleTransition;
+    private bool hasTransitioned;
+
     public static TurtleStats Instance { get; private set; }
 
     private void Awake() {
         if (Instance == null)
             Instance = this;
         else throw new Exception("There can only be one TurtleStats in a scene!");
+        turtleTransition = GetComponent<TurtleTransition>();
     }
 
     private void Start() {
@@ -59,7 +67,13 @@ public class TurtleStats : MonoBehaviour {
         DistanceText.text = $"<b>[{(Stage != TurtleStage.ShouldDieSoon ? Stage : TurtleStage.Adult).ToString()}]</b>\nDistance travelled:\n<b><color=#2ECC71>{Math.Round(DistanceTravelled, 2):.00}m</color></b>";
         
         // Update stage
-        if (Time >= TeenConversionTime && Time < AdultConversionTime) Stage = TurtleStage.Teen;
+        if (Time >= TeenConversionTime && Time < AdultConversionTime) {
+            Stage = TurtleStage.Teen;
+            if (!hasTransitioned) {
+                turtleTransition.TriggerEffect();
+                hasTransitioned = true;
+            }
+        }
         else if (Time >= AdultConversionTime) Stage = TurtleStage.Adult;
         else if (Time >= EssentialDeathTime) Stage = TurtleStage.ShouldDieSoon;
         else Stage = TurtleStage.Hatchling;
@@ -69,6 +83,7 @@ public class TurtleStats : MonoBehaviour {
     }
 
     public void UpdateChances() {
+        CurrentPoacherChance = Mathf.Lerp(PoacherChance.Min, PoacherChance.Max, Time / EssentialDeathTime);
         switch (Stage) {
             case TurtleStage.Hatchling:
                 CurrentJunkDistribution = Mathf.Lerp(HatchlingTeenJunkDistribution.Min, HatchlingTeenJunkDistribution.Max, Time / TeenConversionTime);
