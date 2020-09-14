@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public static class MiscUtils {
     public static T RandomElement<T>(this List<T> list) {
@@ -36,7 +37,7 @@ public static class MiscUtils {
         var z = (value.z - fromSource.z) / (toSource.z - fromSource.z) * (toTarget.z - fromTarget.z) + fromTarget.z;
         return new Vector3(x, y, z);
     }
-    
+
     public static Vector2 MapRange(Vector2 value, Vector2 fromSource, Vector2 toSource, Vector2 fromTarget, Vector2 toTarget) {
         var x = (value.x - fromSource.x) / (toSource.x - fromSource.x) * (toTarget.x - fromTarget.x) + fromTarget.x;
         var y = (value.y - fromSource.y) / (toSource.y - fromSource.y) * (toTarget.y - fromTarget.y) + fromTarget.y;
@@ -48,7 +49,9 @@ public static class MiscUtils {
         RenderTexture.active = renderTexture;
         Graphics.Blit(texture, renderTexture);
         var result = new Texture2D(targetWidth, targetHeight, TextureFormat.RGBA32, mipChain);
+#if UNITY_EDITOR // Unity is freaking out about this in the build
         result.alphaIsTransparency = alphaIsTransparency;
+#endif
         result.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
         result.Apply();
         return result;
