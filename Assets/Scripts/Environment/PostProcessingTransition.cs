@@ -12,7 +12,9 @@ public class PostProcessingTransition : MonoBehaviour {
     public Volume VolumeB;
     public float FogDensityB = 0.025f;
     public Color FogColorB;
-    [Header("References")]
+
+    [Header("Misc")]
+    public float MaxDirtyWeight = 0.7f;
     public Camera Camera;
 
     private float currentWeight = 0f;
@@ -23,7 +25,7 @@ public class PostProcessingTransition : MonoBehaviour {
     }
 
     private void Update() {
-        currentWeight = Mathf.Clamp01(TurtleStats.Instance.Time / TurtleStats.Instance.EssentialDeathTime);
+        currentWeight = MaxDirtyWeight * Mathf.Clamp01(TurtleState.Instance.Time / TurtleState.Instance.StageSettings.EssentialDeathTime);
         
         VolumeA.weight = 1f - currentWeight;
         VolumeB.weight = currentWeight;

@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_965A5150:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Albedo:
         m_Texture: {fileID: 2800000, guid: a5db1aaa9997e374aa77f31fc840b9bc, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -49,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Occlusion:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ae068763aef6e104c9e41425661e7dc9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -66,8 +70,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_5D6AE3AD: 0
+    - Boolean_6145D1B7: 0
     - Vector1_A43B2339: 2
-    - Vector1_E7553A13: 2.2
+    - Vector1_E7553A13: 2.8
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -90,6 +95,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_B8C19A80: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_6D10F1D1: {r: 0.5, g: 0.5, b: 0, a: 0}
     - Vector2_93203CE5: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_AEB76EF9: {r: 1, g: 0, b: 0, a: 0}

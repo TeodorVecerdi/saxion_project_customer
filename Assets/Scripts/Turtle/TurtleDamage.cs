@@ -1,18 +1,18 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(TurtleSlownessEffect))]
+[RequireComponent(typeof(TurtleMovement))]
 public class TurtleDamage : MonoBehaviour {
     public DamageVFX DamageVFX;
     [HideInInspector] public bool IsInvincible;
     private bool ateTrashOneFrameTrigger;
     private bool gotByPoachersOneFrameTrigger;
     
-    private TurtleSlownessEffect slownessEffect;
+    private TurtleMovement turtleMovement;
     private TurtleHealth turtleHealth;
 
     private void Awake() {
-        slownessEffect = GetComponent<TurtleSlownessEffect>();
+        turtleMovement = GetComponent<TurtleMovement>();
     }
 
     private void Start() {
@@ -20,20 +20,20 @@ public class TurtleDamage : MonoBehaviour {
     }
 
     private void Update() {
-        if (TurtleStats.Instance.JustAteTrash) {
-            TurtleStats.Instance.JustAteTrash = false;
+        if (TurtleState.Instance.JustAteTrash) {
+            TurtleState.Instance.JustAteTrash = false;
         }
 
-        if (TurtleStats.Instance.JustGotByPoachers) {
-            TurtleStats.Instance.JustGotByPoachers = false;
+        if (TurtleState.Instance.JustGotByPoachers) {
+            TurtleState.Instance.JustGotByPoachers = false;
         }
         if (ateTrashOneFrameTrigger) {
             ateTrashOneFrameTrigger = false;
-            TurtleStats.Instance.JustAteTrash = true;
+            TurtleState.Instance.JustAteTrash = true;
         }
         if (gotByPoachersOneFrameTrigger) {
             gotByPoachersOneFrameTrigger = false;
-            TurtleStats.Instance.JustGotByPoachers = true;
+            TurtleState.Instance.JustGotByPoachers = true;
         }
     }
 
@@ -49,7 +49,7 @@ public class TurtleDamage : MonoBehaviour {
             ateTrashOneFrameTrigger = true;
         } else if (other.gameObject.CompareTag("Poacher")) {
             DamageVFX.Trigger(this, extreme: true);
-            slownessEffect.Trigger();
+            turtleMovement.TriggerSlowness();
             gotByPoachersOneFrameTrigger = true;
         }
         Destroy(other.gameObject);

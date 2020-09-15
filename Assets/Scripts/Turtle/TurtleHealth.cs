@@ -70,11 +70,11 @@ public class TurtleHealth : MonoBehaviour {
         if (Health > 0f)
             return;
         
-        runScore = TurtleStats.Instance.DistanceTravelled;
+        runScore = TurtleState.Instance.DistanceTravelled;
         PlayerPrefs.SetFloat("CurrentScore", runScore);
-        if (TurtleStats.Instance.JustAteTrash) {
+        if (TurtleState.Instance.JustAteTrash) {
             PlayerPrefs.SetInt("deathScenario", 2);
-        } else if (TurtleStats.Instance.JustGotByPoachers) {
+        } else if (TurtleState.Instance.JustGotByPoachers) {
             PlayerPrefs.SetInt("deathScenario", 3);
         } else {
             PlayerPrefs.SetInt("deathScenario", 1);

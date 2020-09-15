@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldManager : MonoBehaviour {
+public class PickupController : MonoBehaviour {
     [Header("Chunk Settings")]
     public ChunkBuilder ChunkPrefab;
     public Vector2 ChunkSize = new Vector2(7, 5);
@@ -16,8 +16,6 @@ public class WorldManager : MonoBehaviour {
 
     private void OnDrawGizmos() {
         var totalZ = Mathf.Abs(MinZ) + Mathf.Abs(MaxZ);
-        var totalChunks = (int) (totalZ / ChunkSize.y);
-
         // draw extremities
         Gizmos.color = Color.cyan;
         Gizmos.DrawCube(new Vector3(0, 0, MinZ - ChunkSize.y / 2f), new Vector3(ChunkSize.x, 1f, .5f));
@@ -33,16 +31,10 @@ public class WorldManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            DestroyAllChunks();
-            RebuildChunks();
-            return;
-        }
-        
         // Move all chunks towards the player
         foreach (var chunk in ActiveChunks) {
             var currentPosition = chunk.transform.position;
-            currentPosition.z += -TurtleStats.Instance.CurrentSpeed * GameTime.DeltaTime;
+            currentPosition.z += -TurtleState.Instance.CurrentSpeed * GameTime.DeltaTime;
             chunk.transform.position = currentPosition;
         }
 
@@ -59,13 +51,6 @@ public class WorldManager : MonoBehaviour {
         ActiveChunks.Enqueue(newChunk);
         lastChunk = newChunk;
 
-    }
-
-    private void DestroyAllChunks() {
-        foreach (var chunk in ActiveChunks) {
-            Destroy(chunk.gameObject);
-        }
-        ActiveChunks.Clear();
     }
 
     private void RebuildChunks() {

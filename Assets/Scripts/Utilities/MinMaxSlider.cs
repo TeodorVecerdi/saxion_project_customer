@@ -87,26 +87,27 @@ public class MinMaxDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         if (property.serializedObject.isEditingMultipleObjects) return;
+        
+        var indentedPosition = EditorGUI.IndentedRect(position);
 
         var minProperty = property.FindPropertyRelative("min");
         var maxProperty = property.FindPropertyRelative("max");
-        var minmax = attribute as MinMaxSliderAttribute ?? new MinMaxSliderAttribute(0, 1);
-        position.height -= 16f;
+        var minmax = attribute as MinMaxSliderAttribute ?? new MinMaxSliderAttribute(-1f, 1f);
+        indentedPosition.height -= 16f;
 
-        label = EditorGUI.BeginProperty(position, label, property);
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+        label = EditorGUI.BeginProperty(indentedPosition, label, property);
+        indentedPosition = EditorGUI.PrefixLabel(indentedPosition, GUIUtility.GetControlID(FocusType.Passive), label);
         var min = minProperty.floatValue;
         var max = maxProperty.floatValue;
-
-        var left = new Rect(position.x, position.y, position.width / 2 - 11f, position.height);
-        var right = new Rect(position.x + position.width - left.width, position.y, left.width, position.height);
-        var mid = new Rect(left.xMax, position.y, 22, position.height);
+        var left = new Rect(indentedPosition.x, indentedPosition.y, indentedPosition.width / 2 - 11f, indentedPosition.height);
+        var right = new Rect(indentedPosition.x + indentedPosition.width - left.width, indentedPosition.y, left.width, indentedPosition.height);
+        var mid = new Rect(left.x + left.width, indentedPosition.y, indentedPosition.width, indentedPosition.height);
         min = Mathf.Clamp(EditorGUI.FloatField(left, min), minmax.Min, max);
-        EditorGUI.LabelField(mid, " to ");
+        EditorGUI.LabelField(mid, "to");
         max = Mathf.Clamp(EditorGUI.FloatField(right, max), min, minmax.Max);
 
-        position.y += 16f;
-        EditorGUI.MinMaxSlider(position, GUIContent.none, ref min, ref max, minmax.Min, minmax.Max);
+        indentedPosition.y += 16f;
+        EditorGUI.MinMaxSlider(indentedPosition, GUIContent.none, ref min, ref max, minmax.Min, minmax.Max);
 
         minProperty.floatValue = min;
         maxProperty.floatValue = max;

@@ -91,7 +91,7 @@ MonoBehaviour:
   SpawnRows: []
   MaxSpawnWidth: 4
   MaxSpawnHeight: 2
-  MaxItemsPerChunk: 8
+  MaxItemsPerChunk: 7
 --- !u!1 &4949584985680093667
 GameObject:
   m_ObjectHideFlags: 0

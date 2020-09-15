@@ -21,13 +21,13 @@ public class ChunkBuilder : MonoBehaviour {
     }
 
     public void BuildChunk() {
-        TurtleStats.Instance.UpdateChances();
+        TurtleState.Instance.UpdateMinMaxes();
         for (var i = 0; i < MaxItemsPerChunk; i++) {
-            if (!MiscUtils.RandomBoolWeighted(TurtleStats.Instance.CurrentItemSpawningChance)) continue;
+            if (!MiscUtils.RandomBoolWeighted(TurtleState.Instance.ItemSpawningChance.Current)) continue;
             var row = SpawnRows.RandomElement();
 
-            var junkOrFood = MiscUtils.ChooseBetweenWithWeight(JunkItems, FoodItems, TurtleStats.Instance.CurrentJunkDistribution);
-            var orPoacher = MiscUtils.ChooseBetweenWithWeight(PoacherItems, junkOrFood, TurtleStats.Instance.CurrentPoacherChance);
+            var junkOrFood = MiscUtils.ChooseBetweenWithWeight(JunkItems, FoodItems, TurtleState.Instance.JunkDistribution.Current);
+            var orPoacher = MiscUtils.ChooseBetweenWithWeight(PoacherItems, junkOrFood, TurtleState.Instance.PoacherChance.Current);
             var item = orPoacher.RandomElement();
             var position = new Vector3(UnityEngine.Random.Range(-MaxSpawnWidth / 2f, MaxSpawnWidth / 2f), UnityEngine.Random.Range(0f, MaxSpawnHeight), row.z);
             Instantiate(item, position, Quaternion.identity, transform);

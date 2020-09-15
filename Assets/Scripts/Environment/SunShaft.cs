@@ -36,6 +36,6 @@ public class SunShaft : MonoBehaviour {
             mainModule.startColor = color;
         }
         
-        transform.position -= new Vector3(0f, 0f, TurtleStats.Instance.CurrentSpeed * GameTime.DeltaTime);
+        transform.position -= new Vector3(0f, 0f, TurtleState.Instance.CurrentSpeed * GameTime.DeltaTime);
     }
 }

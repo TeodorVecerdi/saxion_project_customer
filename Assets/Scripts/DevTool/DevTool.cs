@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DevTool : MonoBehaviour {
@@ -13,8 +14,9 @@ public class DevTool : MonoBehaviour {
 
     public DamageVFX DamageVFX;
     public TurtleHealth TurtleHealth;
-    public TurtleStats TurtleStats;
-    public TurtleBoost TurtleBoost;
+    public TurtleState TurtleState;
+    [FormerlySerializedAs("TurtleBoost")]
+    public TurtleMovement TurtleMovement;
     [Space]
     public TMP_InputField FogDensity;
     [Header("DamageVFX")]
@@ -58,8 +60,8 @@ public class DevTool : MonoBehaviour {
         if (Instance != null) {
             Instance.DamageVFX = FindObjectOfType<DamageVFX>();
             Instance.TurtleHealth = FindObjectOfType<TurtleHealth>();
-            Instance.TurtleStats = FindObjectOfType<TurtleStats>();
-            Instance.TurtleBoost = FindObjectOfType<TurtleBoost>();
+            Instance.TurtleState = FindObjectOfType<TurtleState>();
+            Instance.TurtleMovement = FindObjectOfType<TurtleMovement>();
             Instance.UpdateValues();
             Destroy(transform.parent.gameObject);
         } else {
@@ -73,7 +75,7 @@ public class DevTool : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             isShown = !isShown;
             GameTime.IsPaused = isShown;
             transform.localScale = isShown ? Vector3.one : Vector3.zero;
@@ -100,25 +102,25 @@ public class DevTool : MonoBehaviour {
         sb.AppendLine($"TurtleHealth.HealthStarvation: {TurtleHealth.HealthStarvation}");
         sb.AppendLine($"TurtleHealth.HealingAmount: {TurtleHealth.HealingAmount}");
         sb.AppendLine($"TurtleHealth.HealingThreshold: {TurtleHealth.HealingThreshold}");
-        sb.AppendLine($"TurtleStats.NormalSpeed: {TurtleStats.NormalSpeed}");
-        sb.AppendLine($"TurtleStats.TeenDistance: {TurtleStats.TeenConversionTime}");
-        sb.AppendLine($"TurtleStats.AdultDistance: {TurtleStats.AdultConversionTime}");
-        sb.AppendLine($"TurtleStats.EssentialDeathDistance: {TurtleStats.EssentialDeathTime}");
-        sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Min: {TurtleStats.HatchlingTeenJunkDistribution.Min}");
-        sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Max: {TurtleStats.HatchlingTeenJunkDistribution.Max}");
-        sb.AppendLine($"TurtleStats.TeenAdultJunkDistribution.Min: {TurtleStats.TeenAdultJunkDistribution.Min}");
-        sb.AppendLine($"TurtleStats.TeenAdultJunkDistribution.Max: {TurtleStats.TeenAdultJunkDistribution.Max}");
-        sb.AppendLine($"TurtleStats.PostAdultJunkDistribution.Min: {TurtleStats.PostAdultJunkDistribution.Min}");
-        sb.AppendLine($"TurtleStats.PostAdultJunkDistribution.Max: {TurtleStats.PostAdultJunkDistribution.Max}");
-        sb.AppendLine($"TurtleStats.HatchlingTeenItemChance.Min: {TurtleStats.HatchlingTeenItemChance.Min}");
-        sb.AppendLine($"TurtleStats.HatchlingTeenItemChance.Max: {TurtleStats.HatchlingTeenItemChance.Max}");
-        sb.AppendLine($"TurtleStats.TeenAdultItemChance.Min: {TurtleStats.TeenAdultItemChance.Min}");
-        sb.AppendLine($"TurtleStats.TeenAdultItemChance.Max: {TurtleStats.TeenAdultItemChance.Max}");
-        sb.AppendLine($"TurtleStats.PostAdultItemChance.Min: {TurtleStats.PostAdultItemChance.Min}");
-        sb.AppendLine($"TurtleStats.PostAdultItemChance.Max: {TurtleStats.PostAdultItemChance.Max}");
-        sb.AppendLine($"TurtleBoost.BoostSpeed: {TurtleBoost.BoostSpeed}");
-        sb.AppendLine($"TurtleBoost.BoostDuration: {TurtleBoost.BoostDuration}");
-        sb.AppendLine($"TurtleBoost.BoostCooldown: {TurtleBoost.BoostCooldown}");
+        sb.AppendLine($"TurtleStats.NormalSpeed: {TurtleState.NormalSpeed}");
+        sb.AppendLine($"TurtleStats.TeenDistance: {TurtleState.StageSettings.TeenConversionTime}");
+        sb.AppendLine($"TurtleStats.AdultDistance: {TurtleState.StageSettings.AdultConversionTime}");
+        sb.AppendLine($"TurtleStats.EssentialDeathDistance: {TurtleState.StageSettings.EssentialDeathTime}");
+        sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Min: {TurtleState.JunkDistribution.HatchlingTeen.Min}");
+        sb.AppendLine($"TurtleStats.HatchlingTeenJunkDistribution.Max: {TurtleState.JunkDistribution.HatchlingTeen.Max}");
+        sb.AppendLine($"TurtleStats.TeenAdultJunkDistribution.Min: {TurtleState.JunkDistribution.TeenAdult.Min}");
+        sb.AppendLine($"TurtleStats.TeenAdultJunkDistribution.Max: {TurtleState.JunkDistribution.TeenAdult.Max}");
+        sb.AppendLine($"TurtleStats.PostAdultJunkDistribution.Min: {TurtleState.JunkDistribution.PostAdult.Min}");
+        sb.AppendLine($"TurtleStats.PostAdultJunkDistribution.Max: {TurtleState.JunkDistribution.PostAdult.Max}");
+        sb.AppendLine($"TurtleStats.HatchlingTeenItemChance.Min: {TurtleState.ItemSpawningChance.HatchlingTeen.Min}");
+        sb.AppendLine($"TurtleStats.HatchlingTeenItemChance.Max: {TurtleState.ItemSpawningChance.HatchlingTeen.Max}");
+        sb.AppendLine($"TurtleStats.TeenAdultItemChance.Min: {TurtleState.ItemSpawningChance.TeenAdult.Min}");
+        sb.AppendLine($"TurtleStats.TeenAdultItemChance.Max: {TurtleState.ItemSpawningChance.TeenAdult.Max}");
+        sb.AppendLine($"TurtleStats.PostAdultItemChance.Min: {TurtleState.ItemSpawningChance.PostAdult.Min}");
+        sb.AppendLine($"TurtleStats.PostAdultItemChance.Max: {TurtleState.ItemSpawningChance.PostAdult.Max}");
+        sb.AppendLine($"TurtleBoost.BoostSpeed: {TurtleMovement.BoostSettings.Speed}");
+        sb.AppendLine($"TurtleBoost.BoostDuration: {TurtleMovement.BoostSettings.Duration}");
+        sb.AppendLine($"TurtleBoost.BoostCooldown: {TurtleMovement.BoostSettings.Cooldown}");
         ExportInput.text = sb.ToString();
     }
 
@@ -142,26 +144,26 @@ public class DevTool : MonoBehaviour {
         HealingAmount.text = $"{TurtleHealth.HealingAmount:0.00}";
         HealingThreshold.value = TurtleHealth.HealingThreshold;
 
-        Speed.text = $"{TurtleStats.NormalSpeed:0.00}";
-        TeenDist.text = $"{TurtleStats.TeenConversionTime:0.00}";
-        AdultDist.text = $"{TurtleStats.AdultConversionTime:0.00}";
-        DeathDist.text = $"{TurtleStats.EssentialDeathTime:0.00}";
-        HatchlinkJunkMin.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Min:0.00}";
-        HatchlinkJunkMax.text = $"{TurtleStats.HatchlingTeenJunkDistribution.Max:0.00}";
-        TeenJunkMin.text = $"{TurtleStats.TeenAdultJunkDistribution.Min:0.00}";
-        TeenJunkMax.text = $"{TurtleStats.TeenAdultJunkDistribution.Max:0.00}";
-        AdultJunkMin.text = $"{TurtleStats.PostAdultJunkDistribution.Min:0.00}";
-        AdultJunkMax.text = $"{TurtleStats.PostAdultJunkDistribution.Max:0.00}";
-        HatchlinkItemChanceMin.text = $"{TurtleStats.HatchlingTeenItemChance.Min:0.00}";
-        HatchlinkItemChanceMax.text = $"{TurtleStats.HatchlingTeenItemChance.Max:0.00}";
-        TeenItemChanceMin.text = $"{TurtleStats.TeenAdultItemChance.Min:0.00}";
-        TeenItemChanceMax.text = $"{TurtleStats.TeenAdultItemChance.Max:0.00}";
-        AdultItemChanceMin.text = $"{TurtleStats.PostAdultItemChance.Min:0.00}";
-        AdultItemChanceMax.text = $"{TurtleStats.PostAdultItemChance.Max:0.00}";
+        Speed.text = $"{TurtleState.NormalSpeed:0.00}";
+        TeenDist.text = $"{TurtleState.StageSettings.TeenConversionTime:0.00}";
+        AdultDist.text = $"{TurtleState.StageSettings.AdultConversionTime:0.00}";
+        DeathDist.text = $"{TurtleState.StageSettings.EssentialDeathTime:0.00}";
+        HatchlinkJunkMin.text = $"{TurtleState.JunkDistribution.HatchlingTeen.Min:0.00}";
+        HatchlinkJunkMax.text = $"{TurtleState.JunkDistribution.HatchlingTeen.Max:0.00}";
+        TeenJunkMin.text = $"{TurtleState.JunkDistribution.TeenAdult.Min:0.00}";
+        TeenJunkMax.text = $"{TurtleState.JunkDistribution.TeenAdult.Max:0.00}";
+        AdultJunkMin.text = $"{TurtleState.JunkDistribution.PostAdult.Min:0.00}";
+        AdultJunkMax.text = $"{TurtleState.JunkDistribution.PostAdult.Max:0.00}";
+        HatchlinkItemChanceMin.text = $"{TurtleState.ItemSpawningChance.HatchlingTeen.Min:0.00}";
+        HatchlinkItemChanceMax.text = $"{TurtleState.ItemSpawningChance.HatchlingTeen.Max:0.00}";
+        TeenItemChanceMin.text = $"{TurtleState.ItemSpawningChance.TeenAdult.Min:0.00}";
+        TeenItemChanceMax.text = $"{TurtleState.ItemSpawningChance.TeenAdult.Max:0.00}";
+        AdultItemChanceMin.text = $"{TurtleState.ItemSpawningChance.PostAdult.Min:0.00}";
+        AdultItemChanceMax.text = $"{TurtleState.ItemSpawningChance.PostAdult.Max:0.00}";
 
-        BoostSpeed.text = $"{TurtleBoost.BoostSpeed:0.00}";
-        BoostDuration.text = $"{TurtleBoost.BoostDuration:0.00}";
-        BoostCooldown.text = $"{TurtleBoost.BoostCooldown:0.00}";
+        BoostSpeed.text = $"{TurtleMovement.BoostSettings.Speed:0.00}";
+        BoostDuration.text = $"{TurtleMovement.BoostSettings.Duration:0.00}";
+        BoostCooldown.text = $"{TurtleMovement.BoostSettings.Cooldown:0.00}";
     }
 
     private void UpdateValues() {
@@ -177,24 +179,24 @@ public class DevTool : MonoBehaviour {
         TurtleHealth.HealthStarvation = float.Parse(HealthLoss.text);
         TurtleHealth.HealingAmount = float.Parse(HealingAmount.text);
         TurtleHealth.HealingThreshold = HealingThreshold.value;
-        TurtleStats.NormalSpeed = float.Parse(Speed.text);
-        TurtleStats.TeenConversionTime = float.Parse(TeenDist.text);
-        TurtleStats.AdultConversionTime = float.Parse(AdultDist.text);
-        TurtleStats.EssentialDeathTime = float.Parse(DeathDist.text);
-        TurtleStats.HatchlingTeenJunkDistribution.Min = float.Parse(HatchlinkJunkMin.text);
-        TurtleStats.HatchlingTeenJunkDistribution.Max = float.Parse(HatchlinkJunkMax.text);
-        TurtleStats.TeenAdultJunkDistribution.Min = float.Parse(TeenJunkMin.text);
-        TurtleStats.TeenAdultJunkDistribution.Max = float.Parse(TeenJunkMax.text);
-        TurtleStats.PostAdultJunkDistribution.Min = float.Parse(AdultJunkMin.text);
-        TurtleStats.PostAdultJunkDistribution.Max = float.Parse(AdultJunkMax.text);
-        TurtleStats.HatchlingTeenItemChance.Min = float.Parse(HatchlinkItemChanceMin.text);
-        TurtleStats.HatchlingTeenItemChance.Max = float.Parse(HatchlinkItemChanceMax.text);
-        TurtleStats.TeenAdultItemChance.Min = float.Parse(TeenItemChanceMin.text);
-        TurtleStats.TeenAdultItemChance.Max = float.Parse(TeenItemChanceMax.text);
-        TurtleStats.PostAdultItemChance.Min = float.Parse(AdultItemChanceMin.text);
-        TurtleStats.PostAdultItemChance.Max = float.Parse(AdultItemChanceMax.text);
-        TurtleBoost.BoostSpeed = float.Parse(BoostSpeed.text);
-        TurtleBoost.BoostDuration = float.Parse(BoostDuration.text);
-        TurtleBoost.BoostCooldown = float.Parse(BoostCooldown.text);
+        TurtleState.NormalSpeed = float.Parse(Speed.text);
+        TurtleState.StageSettings.TeenConversionTime = float.Parse(TeenDist.text);
+        TurtleState.StageSettings.AdultConversionTime = float.Parse(AdultDist.text);
+        TurtleState.StageSettings.EssentialDeathTime = float.Parse(DeathDist.text);
+        TurtleState.JunkDistribution.HatchlingTeen.Min = float.Parse(HatchlinkJunkMin.text);
+        TurtleState.JunkDistribution.HatchlingTeen.Max = float.Parse(HatchlinkJunkMax.text);
+        TurtleState.JunkDistribution.TeenAdult.Min = float.Parse(TeenJunkMin.text);
+        TurtleState.JunkDistribution.TeenAdult.Max = float.Parse(TeenJunkMax.text);
+        TurtleState.JunkDistribution.PostAdult.Min = float.Parse(AdultJunkMin.text);
+        TurtleState.JunkDistribution.PostAdult.Max = float.Parse(AdultJunkMax.text);
+        TurtleState.ItemSpawningChance.HatchlingTeen.Min = float.Parse(HatchlinkItemChanceMin.text);
+        TurtleState.ItemSpawningChance.HatchlingTeen.Max = float.Parse(HatchlinkItemChanceMax.text);
+        TurtleState.ItemSpawningChance.TeenAdult.Min = float.Parse(TeenItemChanceMin.text);
+        TurtleState.ItemSpawningChance.TeenAdult.Max = float.Parse(TeenItemChanceMax.text);
+        TurtleState.ItemSpawningChance.PostAdult.Min = float.Parse(AdultItemChanceMin.text);
+        TurtleState.ItemSpawningChance.PostAdult.Max = float.Parse(AdultItemChanceMax.text);
+        TurtleMovement.BoostSettings.Speed = float.Parse(BoostSpeed.text);
+        TurtleMovement.BoostSettings.Duration = float.Parse(BoostDuration.text);
+        TurtleMovement.BoostSettings.Cooldown = float.Parse(BoostCooldown.text);
     }
 }

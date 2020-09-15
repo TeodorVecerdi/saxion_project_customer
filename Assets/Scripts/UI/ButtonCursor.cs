@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonCursor : MonoBehaviour {
-    private CursorController instance;
+    private static CursorController instance;
     private void Start() {
         instance = FindObjectOfType<CursorController>();
         var eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -16,5 +16,7 @@ public class ButtonCursor : MonoBehaviour {
         
         eventTrigger.triggers.Add(pointerEnter);
         eventTrigger.triggers.Add(pointerExit);
+        
+        Destroy(this);
     }
 }

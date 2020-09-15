@@ -51,7 +51,7 @@ public class TimelineController : MonoBehaviour {
     private void Start() {
         StartingYear = 2020 - Random.Range(50, 101);
         if (AutoRatio) {
-            TimeToYearRatio = (2020 - StartingYear) / TurtleStats.Instance.EssentialDeathTime;
+            TimeToYearRatio = (2020 - StartingYear) / TurtleState.Instance.StageSettings.EssentialDeathTime;
         }
     }
 
@@ -61,13 +61,13 @@ public class TimelineController : MonoBehaviour {
     }
 
     private void UpdateYear() {
-        YearsText.text = $"{StartingYear + TurtleStats.Instance.Time * TimeToYearRatio: 0.}";
+        YearsText.text = $"{StartingYear + TurtleState.Instance.Time * TimeToYearRatio: 0.}";
     }
 
     private void UpdateTimeline() {
         if (timelineActive) {
-            var teenPosition = Offset + (TurtleStats.Instance.TeenConversionTime - TurtleStats.Instance.Time) * TimelineScale;
-            var adultPosition = Offset + (TurtleStats.Instance.AdultConversionTime - TurtleStats.Instance.Time) * TimelineScale;
+            var teenPosition = Offset + (TurtleState.Instance.StageSettings.TeenConversionTime - TurtleState.Instance.Time) * TimelineScale;
+            var adultPosition = Offset + (TurtleState.Instance.StageSettings.AdultConversionTime - TurtleState.Instance.Time) * TimelineScale;
 
             if (teenPosition > timelineSize) {
                 AdultLine.rectTransform.localScale = Vector3.zero;
@@ -150,7 +150,7 @@ public class TimelineController : MonoBehaviour {
                 if (adultPosition < 0) {
                     moveDottedLine = false;
                     dottedLineMaterial.SetFloat("_TimeOffset", Time.time);
-                    dottedLineMaterial.SetFloat("_TimeScale", TurtleStats.Instance.TimeSpeed / TimelineScale / 2f);
+                    dottedLineMaterial.SetFloat("_TimeScale", TurtleState.Instance.TimeSpeed / TimelineScale / 2f);
                     DottedLine.enabled = false;
                     DottedLine.enabled = true;
 
