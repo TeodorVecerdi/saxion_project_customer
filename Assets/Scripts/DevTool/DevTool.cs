@@ -80,7 +80,8 @@ public class DevTool : MonoBehaviour {
             GameTime.IsPaused = isShown;
             transform.localScale = isShown ? Vector3.one : Vector3.zero;
         }
-
+        if(DamageVFX == null || TurtleHealth == null || TurtleState == null || TurtleMovement == null) 
+            return;
         UpdateValues();
     }
 
