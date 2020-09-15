@@ -14674,6 +14674,7 @@ MonoBehaviour:
   - {fileID: 775524891}
   - {fileID: 1002162708}
   - {fileID: 5413412918426850390}
+  SunShaftsContainer: {fileID: 1710145627}
 --- !u!222 &1250682772
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class ButtonEvents : MonoBehaviour {
     public Vector3 offset = new Vector3(5, 5);
     public List<GameObject> InGameSettingsItemsToggle;
+    public Transform SunShaftsContainer;
     private static List<GameObject> inGameSettingsItemsToggleCarryover;
+    private static Transform sunShaftsCarryover;
     private RectTransform thisBtn;
 
     private void Start() {
@@ -34,9 +36,11 @@ public class ButtonEvents : MonoBehaviour {
     public void OnSettingsInGameClick() {
         CursorController.Instance.Default();
         GameTime.IsPaused = true;
+        SunShaftsContainer.position = Vector3.left * 1000f;
         InGameSettingsItemsToggle.ForEach(obj => obj.SetActive(false));
         inGameSettingsItemsToggleCarryover = new List<GameObject>();
         inGameSettingsItemsToggleCarryover.AddRange(InGameSettingsItemsToggle);
+        sunShaftsCarryover = SunShaftsContainer;
         SceneManager.LoadScene("InGameSettingsMenu", LoadSceneMode.Additive);
     }
 
@@ -48,6 +52,7 @@ public class ButtonEvents : MonoBehaviour {
         CursorController.Instance.Game();
         GameTime.IsPaused = false;
         inGameSettingsItemsToggleCarryover.ForEach(obj => obj.SetActive(true));
+        sunShaftsCarryover.position = Vector3.zero;
         SceneManager.UnloadSceneAsync("InGameSettingsMenu");
     }
 
