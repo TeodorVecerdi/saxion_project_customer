@@ -25,8 +25,8 @@ public class Highscore : MonoBehaviour
     }
 
     private void ShowScores() {
-        currentScoreText.text = $"Score: <b>{Math.Round(currentScore, 2):.00}m</b>";
-        highScoreText.text = $"HighScore: <b>{Math.Round(highScore, 2):.00}m</b>";
+        currentScoreText.text = $"Score: <b>{Math.Round(currentScore, 2):0.00} years alive</b>";
+        highScoreText.text = $"Personal Best: <b>{Math.Round(highScore, 2):0.00} years alive</b>";
     }
 
     private void SaveHighScore() {

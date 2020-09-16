@@ -9,6 +9,6 @@ public class SliderSetText : MonoBehaviour {
         slider = GetComponent<Slider>();
     }
     private void Update() {
-        Target.text = $"{slider.value:.00}";
+        Target.text = $"{slider.value:0.00}";
     }
 }

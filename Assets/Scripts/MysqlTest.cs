@@ -5,7 +5,7 @@ using UnityEngine;
 public class MysqlTest : MonoBehaviour {
     private void Start() {
         var connection = new DBConnection();
-        Debug.Log(connection.GetHighscores(5));
+        Debug.Log(connection.Highscores(5));
        
     }
 }

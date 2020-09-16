@@ -16,28 +16,37 @@ public class TurtleTransition : MonoBehaviour {
     private bool isActive;
 
     public void TriggerEffect() {
-        Effect.gameObject.SetActive(true);
-        Effect.SendEvent("OnStart");
-        SunShafts.position = Vector3.left * 1000;
+        // Effect.gameObject.SetActive(true);
+        // Effect.SendEvent("OnStart");
+        // SunShafts.position = Vector3.left * 1000;
+        SoundManager.PlaySound("start_game");
         isActive = true;
         hasTransitioned = false;
         timer = 0f;
     }
 
     public void EndEffect() {
-        Effect.SendEvent("OnStop");
-        SunShafts.position = Vector3.zero;
+        // Effect.SendEvent("OnStop");
+        // SunShafts.position = Vector3.zero;
         isActive = false;
+        transform.localScale = Vector3.one;
     }
-    
+
     private void Update() {
         if (isActive) {
             timer += GameTime.DeltaTime;
-            if (timer >= ModelTransitionTime && !hasTransitioned) {
-                SmallTurtle.SetActive(false);
-                BigTurtle.SetActive(true);
-                hasTransitioned = true;
+            if (timer <= Duration / 2f) {
+                transform.localScale = Vector3.one * (1 - timer / (Duration / 2f));
+            } else if (timer > Duration / 2f) {
+                if (!hasTransitioned) {
+                    SmallTurtle.SetActive(false);
+                    BigTurtle.SetActive(true);
+                    hasTransitioned = true;
+                }
+
+                transform.localScale = Vector3.one * ((timer - Duration / 2f) / (Duration / 2f));
             }
+            
             if (timer >= Duration) {
                 EndEffect();
             }

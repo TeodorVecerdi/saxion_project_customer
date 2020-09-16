@@ -1,24 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms;
 using System.Collections;
 
-public class Leaderboard : MonoBehaviour
-{
-    private TMP_Text text;
+public class Leaderboard : MonoBehaviour {
+    public RectTransform LeaderboardContainer;
+    public LeaderboardEntry LeaderboardEntryPrefab;
 
-    void Start()
-    {
-        text = gameObject.GetComponent<TMP_Text>();
+    private void Start() {
         var connection = new DBConnection();
         string name = PlayerPrefs.GetString("name");
-        string deathScenario = PlayerPrefs.GetString("deathScenario");
+        string deathScenario = PlayerPrefs.GetString("deathScenarioText");
         float currentScore = PlayerPrefs.GetFloat("CurrentScore");
-        Debug.Log(currentScore);
         connection.InsertHighScore(name, deathScenario, currentScore);
-        connection.PrintHighscores(5);
-        text.text = connection.GetHighscores(5);
-        
+        foreach (var highscore in connection.Highscores(5)) {
+            var prefab = Instantiate(LeaderboardEntryPrefab, LeaderboardContainer);
+            prefab.Build(highscore.Name, highscore.DeathReason, $"{Math.Round(highscore.Score, 2):0.00}");
+        }
     }
-
 }
