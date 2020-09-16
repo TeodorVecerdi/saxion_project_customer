@@ -219,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 5, y: 5, z: 0}
   InGameSettingsItemsToggle: []
+  SunShaftsContainer: {fileID: 0}
 --- !u!114 &20005285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 5, y: 5, z: 0}
   InGameSettingsItemsToggle: []
+  SunShaftsContainer: {fileID: 0}
 --- !u!114 &491641187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,7 +1674,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 85fce0b017228d647864f03a61ec1a25, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

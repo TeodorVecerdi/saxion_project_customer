@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5309512177525604556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5309512177525604554}
+  - component: {fileID: 5309512177525604557}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5309512177525604554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5309512177525604556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5309512177525604557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5309512177525604556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73100bab075a6de4da02f06b320c5e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundList:
+  - Key: click
+    Sound: {fileID: 8300000, guid: 2a3a6f9fe78d9274282a3ccb32ae0ea8, type: 3}
+    Loop: 0
+    Autoplay: 0
+    IsMusic: 0
+  - Key: theme_game
+    Sound: {fileID: 8300000, guid: 803893832a7310443abb9d287c9dfe4e, type: 3}
+    Loop: 1
+    Autoplay: 0
+    IsMusic: 1
+  - Key: theme_menu
+    Sound: {fileID: 8300000, guid: 947a5e63485e37b4c99fd8392396e916, type: 3}
+    Loop: 1
+    Autoplay: 0
+    IsMusic: 1
+  - Key: boost_ready
+    Sound: {fileID: 8300000, guid: 4963319a3ab4e744b9714db8bfc449f6, type: 3}
+    Loop: 0
+    Autoplay: 0
+    IsMusic: 0
+  - Key: boost_use
+    Sound: {fileID: 8300000, guid: 32a06aec35de87548ac69190e6b112f7, type: 3}
+    Loop: 0
+    Autoplay: 0
+    IsMusic: 0
+  - Key: start_game
+    Sound: {fileID: 8300000, guid: 511f44b59c3dd644892dfe28c684be6b, type: 3}
+    Loop: 0
+    Autoplay: 0
+    IsMusic: 0
+  - Key: damage
+    Sound: {fileID: 8300000, guid: eed75ca0b74e2d240b3dbb19308dc3fb, type: 3}
+    Loop: 0
+    Autoplay: 0
+    IsMusic: 0

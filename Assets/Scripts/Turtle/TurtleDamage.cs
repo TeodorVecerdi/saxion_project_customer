@@ -47,10 +47,12 @@ public class TurtleDamage : MonoBehaviour {
         if (other.gameObject.CompareTag("Junk")) {
             DamageVFX.Trigger(this);
             ateTrashOneFrameTrigger = true;
+            SoundManager.PlaySound("damage");
         } else if (other.gameObject.CompareTag("Poacher")) {
             DamageVFX.Trigger(this, extreme: true);
             turtleMovement.TriggerSlowness();
             gotByPoachersOneFrameTrigger = true;
+            SoundManager.PlaySound("damage");
         }
         Destroy(other.gameObject);
     }

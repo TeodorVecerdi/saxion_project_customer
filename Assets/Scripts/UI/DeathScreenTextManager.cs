@@ -4,7 +4,7 @@ using System;
 
 public class DeathScreenTextManager : MonoBehaviour
 {
-    public TMP_Text currentScoreText;
+    public TMP_Text deathText;
     [Header("Change scenario number")]
     [Multiline] public string reasonHunger = "has died of hunger. This is the common fate of the ocean turtle. Unless you have a say in the matter. Visit www.seeturtles.org to help fight in our cause.";
     [Multiline] public string reasonPlastic = "has died while chocking on a piece of plastic. A sad death for such a beautiful species. All of this happened because of the carelessness of the people. Help in our cause to reduce the waste in the ocean. Visit www.seeturtles.org to learn more.";
@@ -28,10 +28,10 @@ public class DeathScreenTextManager : MonoBehaviour
                 break;
             }
             case 3: {
-                    deathReason = reasonPoaching;
-                    break;
+                deathReason = reasonPoaching;
+                break;
             }
         }
-        currentScoreText.text = $"<b>" + name + "</b> " + deathReason;
+        deathText.text = $"<b>" + name + "</b> " + deathReason;
     }
 }

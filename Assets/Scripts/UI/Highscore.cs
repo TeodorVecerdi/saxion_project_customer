@@ -12,8 +12,6 @@ public class Highscore : MonoBehaviour
 
     private void Start() {
         OnDeath();
-        //Connection connection = new Connection();
-        //connection.connect();
     }
 
     private void OnDeath() {
@@ -32,7 +30,6 @@ public class Highscore : MonoBehaviour
     }
 
     private void SaveHighScore() {
-        PlayerPrefs.DeleteKey("CurrentScore");
         PlayerPrefs.SetFloat("HighScore", highScore);
         PlayerPrefs.Save();
     }

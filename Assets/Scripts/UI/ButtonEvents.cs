@@ -31,6 +31,10 @@ public class ButtonEvents : MonoBehaviour {
         CursorController.Instance.Default();
         GameTime.IsPaused = false;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        
+        SoundManager.PlaySound("start_game");
+        SoundManager.PauseSound("theme_menu");
+        SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true);
     }
 
     public void OnSettingsInGameClick() {
@@ -42,6 +46,9 @@ public class ButtonEvents : MonoBehaviour {
         inGameSettingsItemsToggleCarryover.AddRange(InGameSettingsItemsToggle);
         sunShaftsCarryover = SunShaftsContainer;
         SceneManager.LoadScene("InGameSettingsMenu", LoadSceneMode.Additive);
+        
+        SoundManager.PauseSound("theme_game");
+        SoundManager.PlaySound("theme_menu", skipIfAlreadyPlaying: true, resumeIfPaused: true);
     }
 
     public void OnSettingsClick() {
@@ -54,6 +61,9 @@ public class ButtonEvents : MonoBehaviour {
         inGameSettingsItemsToggleCarryover.ForEach(obj => obj.SetActive(true));
         sunShaftsCarryover.position = Vector3.zero;
         SceneManager.UnloadSceneAsync("InGameSettingsMenu");
+        
+        SoundManager.PauseSound("theme_menu");
+        SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true, resumeIfPaused: true);
     }
 
     public void OnBackBtnClick() {
@@ -63,6 +73,10 @@ public class ButtonEvents : MonoBehaviour {
     public void OnMainMenuClick() {
         CursorController.Instance.Default();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        
+        
+        SoundManager.StopSound("theme_game");
+        SoundManager.PlaySound("theme_menu", skipIfAlreadyPlaying: true, resumeIfPaused: true);
     }
 
     public void OnMouseEnter() {

@@ -96,6 +96,7 @@ public class TurtleMovement : MonoBehaviour {
             boostVariables.TransitionTimer = boostVariables.IsTransitionActive ? boostVariables.TransitionTimer : 0f;
             boostVariables.IsTransitionActive = true;
             boostVariables.TransitionTimeDirection = 1;
+            SoundManager.PlaySound("boost_use");
         }
 
         if (boostVariables.IsBoosting) {
@@ -117,6 +118,7 @@ public class TurtleMovement : MonoBehaviour {
             if (boostVariables.CooldownTimer >= BoostSettings.Cooldown) {
                 boostVariables.IsCooldownActive = false;
                 boostVariables.IsBoostAvailable = true;
+                SoundManager.PlaySound("boost_ready");
                 BoostSettings.BoostFillImage.fillAmount = 1f;
             }
         }
