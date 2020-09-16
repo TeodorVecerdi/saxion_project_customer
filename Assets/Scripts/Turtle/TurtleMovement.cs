@@ -83,9 +83,11 @@ public class TurtleMovement : MonoBehaviour {
         var targetRotation = Quaternion.Euler(currentDegreesVertical, 0, currentDegreesHorizontal);
         var interpolatedRotation = Quaternion.Slerp(currentRotation, targetRotation, MovementSettings.SmoothRotationDamping);
         transform.rotation = interpolatedRotation;
-        
-        MovementSettings.SmallTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal/MovementSettings.MaxAngleRotationHorizontal);
-        MovementSettings.BigTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal/MovementSettings.MaxAngleRotationHorizontal);
+
+        if (MovementSettings.SmallTurtleAnimator.gameObject.activeInHierarchy)
+            MovementSettings.SmallTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal / MovementSettings.MaxAngleRotationHorizontal);
+        if (MovementSettings.BigTurtleAnimator.gameObject.activeInHierarchy)
+            MovementSettings.BigTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal / MovementSettings.MaxAngleRotationHorizontal);
     }
     #endregion
 
@@ -220,7 +222,7 @@ public class TurtleMovement : MonoBehaviour {
         float currentFOV;
         currentSpeed = MathFunctions.EaseInOut(TurtleState.Instance.NormalSpeed, TurtleState.Instance.NormalSpeed * SlownessSettings.SpeedMultiplier, slownessVariables.TransitionTimer / SlownessSettings.TransitionTime);
         currentFOV = MathFunctions.EaseInOut(SlownessSettings.NormalFOV, SlownessSettings.SlownessFOV, slownessVariables.TransitionTimer / SlownessSettings.TransitionTime);
-        
+
         // Check if transition ended
         if (slownessVariables.TransitionTimer < 0f) {
             slownessVariables.IsSlownessActive = false;
@@ -233,7 +235,7 @@ public class TurtleMovement : MonoBehaviour {
             currentSpeed = TurtleState.Instance.NormalSpeed * SlownessSettings.SpeedMultiplier;
             currentFOV = SlownessSettings.SlownessFOV;
         }
-        
+
         // Apply speed and FOV
         TurtleState.Instance.CurrentSpeed = currentSpeed;
         Camera.fieldOfView = currentFOV;
@@ -320,5 +322,4 @@ public class TurtleMovement : MonoBehaviour {
         public int TransitionTimeDirection;
         public float TransitionTimer;
     }
-
 }

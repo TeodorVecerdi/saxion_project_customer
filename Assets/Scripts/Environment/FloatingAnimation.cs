@@ -28,7 +28,8 @@ public class FloatingAnimation : MonoBehaviour {
     private float xRotStartPos;
     private float yRotStartPos;
     private float zRotStartPos;
-    private Vector3 offset; 
+    private Vector3 offset;
+    private Vector3 rotation;
 
     private void Start() {
         simplexNoise = new OpenSimplexNoise();
@@ -39,6 +40,7 @@ public class FloatingAnimation : MonoBehaviour {
         yRotStartPos = UnityEngine.Random.Range(-10000f, 10000f);
         zRotStartPos = UnityEngine.Random.Range(-10000f, 10000f);
         offset = transform.localPosition;
+        rotation = transform.localEulerAngles;
     }
 
     // Update is called once per frame
@@ -52,6 +54,6 @@ public class FloatingAnimation : MonoBehaviour {
         currentRotation.y = (float) simplexNoise.Evaluate(yRotStartPos, Time.time * yRotationSpeed) * yRotationMagnitude;
         currentRotation.z = (float) simplexNoise.Evaluate(zRotStartPos, Time.time * zRotationSpeed) * zRotationMagnitude;
         transform.localPosition = currentPosition + offset;
-        transform.localRotation = Quaternion.Euler(currentRotation);
+        transform.localEulerAngles = currentRotation + rotation;
     }
 }
