@@ -53,6 +53,8 @@ public class TurtleDamage : MonoBehaviour {
             turtleMovement.TriggerSlowness();
             gotByPoachersOneFrameTrigger = true;
             SoundManager.PlaySound("damage");
+        } else {
+            SoundManager.PlaySound("crunch");
         }
         Destroy(other.gameObject);
     }

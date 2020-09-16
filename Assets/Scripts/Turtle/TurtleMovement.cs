@@ -83,6 +83,9 @@ public class TurtleMovement : MonoBehaviour {
         var targetRotation = Quaternion.Euler(currentDegreesVertical, 0, currentDegreesHorizontal);
         var interpolatedRotation = Quaternion.Slerp(currentRotation, targetRotation, MovementSettings.SmoothRotationDamping);
         transform.rotation = interpolatedRotation;
+        
+        MovementSettings.SmallTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal/MovementSettings.MaxAngleRotationHorizontal);
+        MovementSettings.BigTurtleAnimator.SetFloat("HeadDirection", -currentDegreesHorizontal/MovementSettings.MaxAngleRotationHorizontal);
     }
     #endregion
 
@@ -262,6 +265,10 @@ public class TurtleMovement : MonoBehaviour {
         [Header("Other Settings")]
         [Range(0f, 1f)] public float SmoothPositionDamping = 0.3f;
         [Range(0f, 1f)] public float SmoothRotationDamping = 0.2f;
+
+        [Header("Animations")]
+        public Animator SmallTurtleAnimator;
+        public Animator BigTurtleAnimator;
     }
 
     [Serializable] public class BoostSettingsData {
@@ -313,4 +320,5 @@ public class TurtleMovement : MonoBehaviour {
         public int TransitionTimeDirection;
         public float TransitionTimer;
     }
+
 }

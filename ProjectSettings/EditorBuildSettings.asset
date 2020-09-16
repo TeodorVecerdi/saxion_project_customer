@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathMenu.unity
     guid: d2e1be5db25635248844266c297ed539
+  - enabled: 1
+    path: Assets/Scenes/LoadingScreen.unity
+    guid: f223d5e793093b24cb53670010ae755b
   m_configObjects: {}

@@ -30,11 +30,7 @@ public class ButtonEvents : MonoBehaviour {
     public void OnPlayClick(TMP_InputField inputField) {
         CursorController.Instance.Default();
         GameTime.IsPaused = false;
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
-        
-        SoundManager.PlaySound("start_game");
-        SoundManager.PauseSound("theme_menu");
-        SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true);
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
     }
 
     public void OnSettingsInGameClick() {
