@@ -27,7 +27,6 @@ public class DBConnection : IDisposable {
     }
 
     public List<Highscore> Highscores(int numScores) {
-        Debug.Log($"[UUID]\t\t[NAME]\t\t[REASON]\t\t[SCORE]");
         using (var command = new MySqlCommand("SELECT * FROM highscore ORDER BY score DESC LIMIT @limit", connection)) {
             command.Parameters.AddWithValue("limit", numScores);
 

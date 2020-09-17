@@ -25,7 +25,7 @@ public class LoadingScreen : MonoBehaviour {
     private void Start() {
         StartCoroutine(LoadScene());
         GameTime.IsPaused = true;
-        Tips[0].gameObject.SetActive(true);
+        Tips[0].Enable();
     }
 
     private void Update() {
@@ -66,7 +66,7 @@ public class LoadingScreen : MonoBehaviour {
 
     private IEnumerator LoadScene() {
         yield return null;
-        var sceneLoading = SceneManager.LoadSceneAsync("Game");
+        var sceneLoading = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
         sceneLoading.allowSceneActivation = false;
         while (!sceneLoading.isDone) {
             if (!isLoadingDone) {
@@ -78,9 +78,10 @@ public class LoadingScreen : MonoBehaviour {
             } else {
                 if (Input.anyKeyDown && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(2)) {
                     GameTime.IsPaused = false;
+                    
                     SoundManager.PlaySound("start_game");
                     SoundManager.PauseSound("theme_menu");
-                    SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true);
+                    SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true, resumeIfPaused: true);
                     sceneLoading.allowSceneActivation = true;
                 }
             }

@@ -29,7 +29,6 @@ public class ButtonEvents : MonoBehaviour {
 
     public void OnPlayClick(TMP_InputField inputField) {
         CursorController.Instance.Default();
-        GameTime.IsPaused = false;
         SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
     }
 
@@ -52,11 +51,12 @@ public class ButtonEvents : MonoBehaviour {
     }
 
     public void OnResumeClick() {
-        CursorController.Instance.Game();
         GameTime.IsPaused = false;
         inGameSettingsItemsToggleCarryover.ForEach(obj => obj.SetActive(true));
         sunShaftsCarryover.position = Vector3.zero;
         SceneManager.UnloadSceneAsync("InGameSettingsMenu");
+        
+        CursorController.Instance.Game();
         
         SoundManager.PauseSound("theme_menu");
         SoundManager.PlaySound("theme_game", skipIfAlreadyPlaying: true, resumeIfPaused: true);

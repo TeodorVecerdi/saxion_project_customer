@@ -51,7 +51,7 @@ public class TimelineController : MonoBehaviour {
     private void Start() {
         StartingYear = 2020 - Random.Range(50, 101);
         if (AutoRatio) {
-            TimeToYearRatio = 100 / TurtleState.Instance.StageSettings.EssentialDeathTime;
+            TimeToYearRatio = (2020 - StartingYear) / TurtleState.Instance.StageSettings.EssentialDeathTime;
         }
     }
 

@@ -70,7 +70,7 @@ public class TurtleHealth : MonoBehaviour {
         if (Health > 0f)
             return;
         
-        runScore = TurtleState.Instance.Time * 100 / TurtleState.Instance.StageSettings.EssentialDeathTime;
+        runScore = TurtleState.Instance.Time;
         PlayerPrefs.SetFloat("CurrentScore", runScore);
         if (TurtleState.Instance.JustAteTrash) {
             PlayerPrefs.SetString("deathScenarioText", "Choked on plastic");
@@ -83,7 +83,11 @@ public class TurtleHealth : MonoBehaviour {
             PlayerPrefs.SetInt("deathScenario", 1);
         } 
         PlayerPrefs.Save();
-        Debug.Log("u ded");
+        
+        CursorController.Instance.Default();
+        SoundManager.PauseSound("theme_game");
+        SoundManager.PlaySound("theme_menu", skipIfAlreadyPlaying: true, resumeIfPaused: true);
+        
         SceneManager.LoadScene("DeathMenu", LoadSceneMode.Single);
     }
 }
